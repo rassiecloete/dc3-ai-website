@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Production Dashboard Example · DC3-AI</title>
+<meta name="description" content="An example live production dashboard for a repair workshop: every technician's scoreboard against target, the date we can promise for any ticket, and every open order with whose move it is.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css?v=78f1d3e8">
+</head>
+<body>
+<header class="site-head">
+  <a class="lockup" href="../../index.html" aria-label="DC3-AI home">
+    <img src="../../assets/logo.svg" alt="DC3-AI" width="150" height="26">
+    <span class="descriptor">Performance Optimisation</span>
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="../../index.html">What we do</a>
+    <a href="../../examples/online-retail/fortnightly-tracker.html">Fortnightly tracker</a>
+    <a href="../../examples/online-retail/management-pack.html">Management pack</a>
+    <a href="../../examples/workshop/production-report.html" aria-current="page">Production reports</a>
+    <a href="../../index.html#about">About</a>
+    <a class="cta" href="../../solve.html">Bring us one problem to solve</a>
+  </nav>
+</header>
+<main class="wrap">
+  <p class="crumbs"><a href="../../index.html">Home</a> / <a href="../../examples/index.html">Examples</a> / Repair workshop</p>
+  <div class="doc-intro">
+    <div>
+      <p class="eyebrow">Example · live production dashboard</p>
+      <h1>The workshop, <em>live</em></h1>
+      <p class="lede">The dashboard behind the morning report. Each technician signs in with their help-desk account and sees their own scoreboard; managers see the whole team, the honest date for any customer’s unit, and every open order with whose move it is.</p>
+    </div>
+    <ul>
+      <li>Jobs against a fixed target, so everyone knows where they stand by Tuesday</li>
+      <li>A date for any ticket, from the workshop’s own recent jobs</li>
+      <li>Every open order, sorted by age, with whose move it is</li>
+      <li>Click any number for the tickets behind it</li>
+    </ul>
+  </div>
+
+  <article class="doc dash" aria-label="Example production dashboard">
+    <div class="doc-head">
+      <div class="t"><span>Workshop · production dashboard</span>Tue 6 Oct, 09:04</div>
+      <div class="meta">Help desk · timesheets · books<br>refreshed every few minutes</div>
+    </div>
+
+    <div class="dash-tabs" role="tablist" aria-label="Dashboard pages">
+      <button type="button" role="tab" id="tab-team" aria-controls="p-team" aria-selected="true">Team scoreboard</button>
+      <button type="button" role="tab" id="tab-turn" aria-controls="p-turn" aria-selected="false" tabindex="-1">Turnaround</button>
+      <button type="button" role="tab" id="tab-back" aria-controls="p-back" aria-selected="false" tabindex="-1">Order backlog</button>
+    </div>
+
+    <!-- TEAM SCOREBOARD -->
+    <section class="dash-panel" role="tabpanel" id="p-team" aria-labelledby="tab-team">
+      <p class="dash-lede">Jobs finished, warranty repairs and activities closed, for everyone on the bench. <b>Week of 5 Oct, to date</b>: weekday 2 of 5.</p>
+      <div class="kpis four">
+        <div class="kpi"><div class="l">Jobs finished</div><b>41</b><div class="c">33 invoiced · 8 awaiting invoice</div></div>
+        <div class="kpi"><div class="l">Warranty repairs</div><b>4</b><div class="c">extra work, not in jobs</div></div>
+        <div class="kpi"><div class="l">Activities closed</div><b>25</b><div class="c"><span class="dn">72% after due date</span></div></div>
+        <div class="kpi"><div class="l">Open bench work, assigned</div><b>258</b><div class="c">124 activities overdue</div></div>
+      </div>
+
+      <div class="tbl">
+        <table class="dash-table">
+          <thead><tr><th>Technician</th><th>Jobs finished<small>target 20 a week · 8 expected by now</small></th><th>Warranty</th><th>Activities closed</th><th>Open · mine</th><th>Reopened<small>customer replied</small></th></tr></thead>
+          <tbody>
+            <tr><td><b>Sam Okafor</b></td><td><div class="tgt"><b>9</b><span class="pill up">45%</span><i><s style="width:45%"></s></i><small>ahead by 1</small></div></td><td>0</td><td>4</td><td>29</td><td>12</td></tr>
+            <tr><td><b>Lena Park</b></td><td><div class="tgt"><b>7</b><span class="pill ok">35%</span><i><s style="width:35%"></s></i><small>behind by 1</small></div></td><td>1</td><td>3</td><td>24</td><td>9</td></tr>
+            <tr><td><b>Marco Ruiz</b></td><td><div class="tgt"><b>6</b><span class="pill ok">30%</span><i><s style="width:30%"></s></i><small>behind by 2</small></div></td><td>0</td><td>2</td><td>31</td><td>14</td></tr>
+            <tr><td><b>Priya Shah</b></td><td><div class="tgt"><b>5</b><span class="pill warn">25%</span><i><s style="width:25%"></s></i><small>behind by 3 · 2 warranty repairs</small></div></td><td>2</td><td>6</td><td>17</td><td>4</td></tr>
+            <tr><td><b>Tom Becker</b></td><td><div class="tgt"><b>5</b><span class="pill warn">25%</span><i><s style="width:25%"></s></i><small>behind by 3</small></div></td><td>0</td><td>1</td><td>36</td><td>17</td></tr>
+            <tr><td><b>Ava Lindqvist</b></td><td><div class="tgt"><b>4</b><span class="pill warn">20%</span><i><s style="width:20%"></s></i><small>behind by 4</small></div></td><td>1</td><td>3</td><td>25</td><td>8</td></tr>
+            <tr><td><b>Jonah Reid</b></td><td><div class="tgt"><b>3</b><span class="pill warn">15%</span><i><s style="width:15%"></s></i><small>behind by 5</small></div></td><td>0</td><td>2</td><td>30</td><td>11</td></tr>
+            <tr><td><b>Mia Torres</b></td><td><div class="tgt"><b>2</b><span class="pill bad">10%</span><i><s style="width:10%"></s></i><small>behind by 6</small></div></td><td>0</td><td>4</td><td>26</td><td>6</td></tr>
+            <tr><td><b>Owen Hart</b></td><td><div class="tgt"><b>0</b><span class="pill bad">0%</span><i><s style="width:0"></s></i><small>no hours and no leave on Monday: confirm</small></div></td><td>0</td><td>0</td><td>22</td><td>7</td></tr>
+            <tr><td><b>Kai Morgan</b></td><td><div class="tgt"><b>0</b><span class="pill">leave</span><i><s style="width:0"></s></i><small>on leave Mon–Tue: target lowered</small></div></td><td>0</td><td>0</td><td>18</td><td>5</td></tr>
+            <tr class="total"><td>Team · 10 technicians</td><td>41<small>33 invoiced · 8 awaiting</small></td><td>4</td><td>25</td><td>258</td><td>93</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine">Targets are fixed: leave and company holidays lower them, nothing else does. A week’s share is spread evenly over its weekdays, so “expected by now” is fair on a Tuesday. A ticket reopened because the customer replied is its own column and never counted inside open work.</p>
+
+      <h4>What is waiting on the team</h4>
+      <div class="facts">
+        <div>Pre-work<b>122</b><span>unit here, bench work not started</span></div>
+        <div>On the bench<b>106</b><span>being tested or repaired</span></div>
+        <div>On hold<b>27</b><span>waiting on the customer or parts</span></div>
+        <div>Not started<b>3</b><span>created and never touched</span></div>
+      </div>
+    </section>
+
+    <!-- TURNAROUND -->
+    <section class="dash-panel" role="tabpanel" id="p-turn" aria-labelledby="tab-turn" hidden>
+      <p class="dash-lede">When we expect to start, finish and get a unit back to the customer, for any active ticket and for any product sent in today. Measured from the workshop’s own finished jobs, in working days.</p>
+
+      <div class="lookup">
+        <label for="tk">Wait time on a specific ticket</label>
+        <div class="lookup-row"><input id="tk" inputmode="numeric" autocomplete="off" placeholder="e.g. 51207"><button type="button" class="btn key" id="tk-go">Look up</button></div>
+        <p class="tk-try">Try: <button type="button" data-tk="51207">51207</button> <button type="button" data-tk="51388">51388</button> <button type="button" data-tk="51460">51460</button> <button type="button" data-tk="50944">50944</button></p>
+        <div class="tk-out" id="tk-out" aria-live="polite"></div>
+      </div>
+
+      <h4>If a unit arrives today, Tue 6 Oct</h4>
+      <div class="tbl">
+        <table class="dash-table">
+          <thead><tr><th>Product line</th><th>Typical<small>working days</small></th><th>Finished</th><th>Back with customer</th><th>4 in 5 by</th><th>Trend<small>vs the 30 days before</small></th><th>Queue<small>here / bench / not sent in</small></th></tr></thead>
+          <tbody>
+            <tr><td><b>Product Gamma</b></td><td>1 d</td><td>Wed 7 Oct</td><td>Thu 8 Oct</td><td>Thu 8 Oct · 2 d</td><td>same</td><td>24 / 0 / 41</td></tr>
+            <tr><td><b>Product Zeta</b></td><td>2 d</td><td>Thu 8 Oct</td><td>Fri 9 Oct</td><td>Thu 8 Oct · 2 d</td><td class="up">faster · was 3 d</td><td>14 / 0 / 16</td></tr>
+            <tr><td><b>Product Epsilon</b></td><td>6 d</td><td>Wed 14 Oct</td><td>Thu 15 Oct</td><td>Fri 16 Oct · 8 d</td><td class="up">faster · was 7 d</td><td>34 / 9 / 48</td></tr>
+            <tr><td><b>Product Beta</b></td><td>7 d</td><td>Thu 15 Oct</td><td>Fri 16 Oct</td><td>Fri 16 Oct · 8 d</td><td>same</td><td>16 / 11 / 26</td></tr>
+            <tr><td><b>Product Alpha</b></td><td>8 d</td><td>Fri 16 Oct</td><td>Mon 19 Oct</td><td>Thu 22 Oct · 12 d</td><td class="dn">slower · was 7 d</td><td>92 / 18 / 61</td></tr>
+            <tr><td><b>Product Delta</b></td><td>8 d</td><td>Fri 16 Oct</td><td>Mon 19 Oct</td><td>Wed 21 Oct · 11 d</td><td class="up">faster · was 9 d</td><td>85 / 30 / 96</td></tr>
+            <tr><td><b>Product Theta</b></td><td>8 d</td><td>Fri 16 Oct</td><td>Mon 19 Oct</td><td>Tue 20 Oct · 10 d</td><td class="dn">slower · was 7 d</td><td>32 / 0 / 23</td></tr>
+            <tr><td><b>Product Eta</b></td><td>9 d</td><td>Mon 19 Oct</td><td>Tue 20 Oct</td><td>Wed 21 Oct · 11 d</td><td>same</td><td>54 / 3 / 39</td></tr>
+            <tr><td><b>Product Iota</b></td><td>10 d</td><td>Tue 20 Oct</td><td>Wed 21 Oct</td><td>Fri 23 Oct · 13 d</td><td>same</td><td>34 / 0 / 22</td></tr>
+            <tr class="total"><td>All products</td><td>7 d</td><td>Thu 15 Oct</td><td>Fri 16 Oct</td><td>Tue 20 Oct · 10 d</td><td>same</td><td>385 / 71 / 372</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine">Typical = half of recent jobs of that kind were finished faster, half slower. 4 in 5 = four out of five were finished by then. Weekends and company holidays are skipped in every date; back with the customer assumes it ships the day it is finished and goes overnight. A ticket that has already waited longer than almost every recent job of its kind gets no date: the page says to ask the technician.</p>
+    </section>
+
+    <!-- ORDER BACKLOG -->
+    <section class="dash-panel" role="tabpanel" id="p-back" aria-labelledby="tab-back" hidden>
+      <p class="dash-lede">Every paid-for order that has not been finished and invoiced yet, with whose move it is, how old it is, and the ticket behind it. <span class="pill warn">Management only</span></p>
+      <div class="move-filter" role="group" aria-label="Filter by whose move">
+        <button type="button" class="on" data-move="all">All open · 921</button>
+        <button type="button" data-move="us">Waiting on us · 490</button>
+        <button type="button" data-move="cust">Waiting on the customer · 398</button>
+        <button type="button" data-move="unclear">Unclear · 33</button>
+      </div>
+      <div class="tbl">
+        <table class="dash-table backlog">
+          <thead><tr><th>Order</th><th>Ordered</th><th>Age</th><th>Whose move</th><th>Ticket status</th><th>Product line</th><th>Ticket</th><th>Owner</th></tr></thead>
+          <tbody>
+            <tr data-move="cust"><td>#18842</td><td>26 Sep 2023</td><td class="dn">1,106 d</td><td><span class="mv cust">Waiting on the customer</span></td><td>Form not done</td><td>no product yet</td><td>—</td><td class="na">unassigned</td></tr>
+            <tr data-move="cust"><td>#30417</td><td>15 Oct 2025</td><td class="dn">356 d</td><td><span class="mv cust">Waiting on the customer</span></td><td>Customer sending unit</td><td>Product Delta</td><td>#41992</td><td>Lena Park</td></tr>
+            <tr data-move="unclear"><td>#30588</td><td>19 Oct 2025</td><td class="dn">352 d</td><td><span class="mv unclear">Unclear</span></td><td>Open</td><td>Product Iota</td><td>#42107</td><td>Kai Morgan</td></tr>
+            <tr data-move="cust"><td>#33226</td><td>21 Jan 2026</td><td class="dn">258 d</td><td><span class="mv cust">Waiting on the customer</span></td><td>Form not done</td><td>Product Beta</td><td>#44567</td><td class="na">unassigned</td></tr>
+            <tr data-move="us"><td>#34882</td><td>20 Mar 2026</td><td class="dn">200 d</td><td><span class="mv us">Waiting on us</span></td><td>Parts received</td><td>Product Alpha</td><td>#46660</td><td>Tom Becker</td></tr>
+            <tr data-move="cust"><td>#35337</td><td>3 Apr 2026</td><td class="dn">186 d</td><td><span class="mv cust">Waiting on the customer</span></td><td>Form not completed</td><td>Product Gamma</td><td>#47152</td><td class="na">unassigned</td></tr>
+            <tr data-move="us"><td>#36530</td><td>14 Sep 2026</td><td>22 d</td><td><span class="mv us">Waiting on us</span></td><td>Parts received</td><td>Product Theta</td><td>#50944</td><td>Marco Ruiz</td></tr>
+            <tr data-move="us"><td>#36912</td><td>28 Sep 2026</td><td>8 d</td><td><span class="mv us">Waiting on us</span></td><td>Testing</td><td>Product Delta</td><td>#51207</td><td>Sam Okafor</td></tr>
+            <tr data-move="us"><td>#37004</td><td>1 Oct 2026</td><td>5 d</td><td><span class="mv us">Waiting on us</span></td><td>Parts received</td><td>Product Alpha</td><td>#51388</td><td class="na">unassigned</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine">A sample of rows. Age = days since the order was paid for. <b>Whose move</b> comes from the ticket’s status on the help desk: <i>waiting on us</i> = the unit is here and the work is outstanding; <i>waiting on the customer</i> = the unit or the intake form has not arrived; <i>unclear</i> = a status that names neither side, which is itself a job for someone.</p>
+    </section>
+
+    <p class="fine">Example from client work. Products renamed Alpha to Iota, technicians renamed, and every figure changed, so the business cannot be identified.</p>
+  </article>
+
+  <div class="next">
+    <p>Built for one workshop at a time: your products, your stages, your targets and your people. Bring us one problem to solve, whether it sits in marketing, the books or the production floor.</p>
+    <div class="button-row" style="margin-top:0"><a class="btn" href="../../examples/workshop/production-report.html">See the morning report</a><a class="btn key" href="../../solve.html">Bring us one problem to solve</a></div>
+  </div>
+
+  <script>
+    (function () {
+      // Tabs
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.dash-tabs [role=tab]'));
+      function show(tab) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        });
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { show(t); });
+        t.addEventListener('keydown', function (e) {
+          var n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (n) { var next = tabs[(i + n + tabs.length) % tabs.length]; show(next); next.focus(); }
+        });
+      });
+
+      // Ticket lookup (example tickets only)
+      var T = {
+        '51207': ['Product Delta', 'On the bench', 'Mon 28 Sep', '6 working days', 'Mon 5 Oct (started)', 'Thu 8 Oct', 'Fri 9 Oct', 'Sam Okafor'],
+        '51388': ['Product Alpha', 'Here, not started', 'Thu 1 Oct', '3 working days', 'Tue 13 Oct (expected)', 'Tue 13 Oct', 'Wed 14 Oct', 'unassigned'],
+        '51460': ['Product Gamma', 'Here, not started', 'Mon 5 Oct', '1 working day', 'Wed 7 Oct (expected)', 'Wed 7 Oct', 'Thu 8 Oct', 'unassigned'],
+        '50944': ['Product Theta', 'Here, not started', 'Mon 14 Sep', '16 working days', null, null, null, 'Marco Ruiz']
+      };
+      var input = document.getElementById('tk'), out = document.getElementById('tk-out');
+      function look(n) {
+        n = String(n || '').replace(/\D/g, '');
+        var r = T[n];
+        if (!n) { out.innerHTML = ''; return; }
+        if (!r) { out.innerHTML = '<p>No active ticket #' + n + ' in this example. Try one of the four above.</p>'; return; }
+        var html = '<p class="tk-h"><b>#' + n + '</b> · ' + r[0] + ' · ' + r[1] + ' · arrived ' + r[2] + ', waited ' + r[3] + '</p>';
+        if (r[4]) {
+          html += '<div class="facts"><div>Start<b>' + r[4] + '</b></div><div>Finished<b>' + r[5] + '</b></div><div>Back with customer<b>' + r[6] + '</b></div><div>Owner<b>' + r[7] + '</b></div></div>';
+        } else {
+          html += '<p class="nuance">This ticket has already waited longer than almost every recent job of its kind, so no date is given: ask the technician (' + r[7] + ').</p>';
+        }
+        out.innerHTML = html;
+      }
+      document.getElementById('tk-go').addEventListener('click', function () { look(input.value); });
+      input.addEventListener('keydown', function (e) { if (e.key === 'Enter') look(input.value); });
+      document.querySelectorAll('.tk-try button').forEach(function (b) {
+        b.addEventListener('click', function () { input.value = b.getAttribute('data-tk'); look(input.value); });
+      });
+
+      // Backlog filter
+      var rows = document.querySelectorAll('.backlog tbody tr');
+      document.querySelectorAll('.move-filter button').forEach(function (b, _, all) {
+        b.addEventListener('click', function () {
+          Array.prototype.forEach.call(all, function (x) { x.classList.toggle('on', x === b); });
+          var m = b.getAttribute('data-move');
+          Array.prototype.forEach.call(rows, function (r) { r.hidden = m !== 'all' && r.getAttribute('data-move') !== m; });
+        });
+      });
+    })();
+  </script>
+</main>
+<footer class="site-foot">
+  <span>© 2026 DC3-AI · Performance Optimisation</span>
+  <span>Client examples are anonymised. Figures are rounded or illustrative.</span>
+</footer>
+<script>
+  // Copy buttons: any button with data-copy="<element id>" copies that element's text.
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected: press Ctrl+C';
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = label; }, 1800);
+        }, fallback);
+      } else { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>

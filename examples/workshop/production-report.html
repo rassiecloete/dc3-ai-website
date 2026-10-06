@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Production Report Example · DC3-AI</title>
+<meta name="description" content="An example daily production report for a repair workshop: units out against orders in, jobs per technician hour, wait times by product line and where the backlog stands, in plain sentences every morning.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css?v=78f1d3e8">
+</head>
+<body>
+<header class="site-head">
+  <a class="lockup" href="../../index.html" aria-label="DC3-AI home">
+    <img src="../../assets/logo.svg" alt="DC3-AI" width="150" height="26">
+    <span class="descriptor">Performance Optimisation</span>
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="../../index.html">What we do</a>
+    <a href="../../examples/online-retail/fortnightly-tracker.html">Fortnightly tracker</a>
+    <a href="../../examples/online-retail/management-pack.html">Management pack</a>
+    <a href="../../examples/workshop/production-report.html" aria-current="page">Production reports</a>
+    <a href="../../index.html#about">About</a>
+    <a class="cta" href="../../solve.html">Bring us one problem to solve</a>
+  </nav>
+</header>
+<main class="wrap">
+  <p class="crumbs"><a href="../../index.html">Home</a> / <a href="../../examples/index.html">Examples</a> / Repair workshop</p>
+  <div class="doc-intro">
+    <div>
+      <p class="eyebrow">Example · daily production report</p>
+      <h1>Production, <em>reported every morning</em></h1>
+      <p class="lede">Before the workshop opens, the owner gets one page on their phone: what went out yesterday, what came in, whether that was a good day, how long customers are waiting and where the backlog stands. Every figure comes from the help desk, the timesheets and the books, joined and checked.</p>
+    </div>
+    <ul>
+      <li>The answer first: a good day or not, and why</li>
+      <li>Output per technician hour, so a short-staffed day is read fairly</li>
+      <li>Timesheet gaps flagged by name, before payroll</li>
+      <li>Wait times per product line, so customers are given honest dates</li>
+    </ul>
+  </div>
+
+  <article class="doc prod-report" aria-label="Example daily production report">
+    <div class="doc-head">
+      <div class="t"><span>Daily output · Mon 5 Oct</span>42 out, 51 orders in: <em class="slow">a slow day</em></div>
+      <div class="meta">Sent 08:00 every working day<br>Help desk · timesheets · books</div>
+    </div>
+
+    <div class="pr-lines">
+      <p><b>Yesterday</b> we completed <b>38 jobs</b> and <b>4 warranty returns</b>: <b>42 units out</b>, against <b>51 new orders</b>. We also closed <b>22 activities</b>.</p>
+      <p><b>Good or not?</b> No: new orders outran us (−9), and 38 jobs is 31% under a normal day lately (55).</p>
+      <p><b>Per technician hour:</b> 8 technicians worked 64 hours: 0.59 jobs per hour against a normal 0.66, a little below the normal rate. The same day last week ran at 0.91 (104 hours against 64).</p>
+      <p><b>Timesheet problems this week:</b> Owen Hart (Mon: no hours and no leave booked, so confirm a day off). Hours on that day may be short until it is fixed.</p>
+      <p><b>This week so far</b> (Mon–Mon): 38 jobs, <span class="dn">57 behind</span> the 95 by the same day last week. New orders 51 against 70.</p>
+      <p><b>October so far:</b> 158 jobs against 190 new orders, so the backlog <span class="dn">grew by 20</span>. In September by the same point it shrank by 28.</p>
+      <p><b>Wait times: stagnant.</b> 4 in 5 jobs are finished within <b>10 working days</b> of arriving, the same as a week ago. <b>10+ days:</b> Iota 13, Alpha 12, Delta 11, Eta 11, Theta 10. <b>5–9 days:</b> Epsilon 8, Beta 8. Better than a week ago: Iota, Theta, Epsilon, Zeta.</p>
+      <p><b>Falling behind this week:</b> Theta (0 done, 8 new), Delta (4 done, 11 new), Epsilon (0 done, 7 new).</p>
+    </div>
+
+    <h4>Output against orders</h4>
+    <div class="tbl">
+      <table class="pr-table">
+        <thead><tr><th></th><th>Mon 5 Oct<small>yesterday</small></th><th>This week<small>Mon–Mon</small></th><th>Last week<small>same days</small></th><th>October<small>to date, 3 work days</small></th><th>September<small>first 3 work days</small></th></tr></thead>
+        <tbody>
+          <tr><td><b>Jobs completed</b></td><td>38</td><td class="dn">38</td><td>95</td><td>158</td><td>182</td></tr>
+          <tr><td>Warranty returns</td><td>4</td><td>4</td><td>3</td><td>12</td><td>18</td></tr>
+          <tr><td><b>Total units out</b></td><td>42</td><td class="dn">42</td><td>98</td><td class="dn">170</td><td>200</td></tr>
+          <tr><td>New orders in</td><td>51</td><td>51</td><td>70</td><td>190</td><td>172</td></tr>
+          <tr><td><b>Backlog</b></td><td class="dn">▲ 9</td><td class="dn">▲ 9</td><td class="up">▼ 28</td><td class="dn">▲ 20</td><td class="up">▼ 28</td></tr>
+          <tr><td>Activities closed</td><td>22</td><td>22</td><td>63</td><td>166</td><td>50</td></tr>
+          <tr class="sub-row"><td>…closed late</td><td>69%</td><td>69%</td><td>47%</td><td>19%</td><td>31%</td></tr>
+          <tr><td>Technician hours</td><td>64</td><td>64</td><td>104</td><td>248</td><td>304</td></tr>
+          <tr class="total"><td>Jobs per hour</td><td>0.59</td><td class="dn">0.59</td><td>0.91</td><td>0.64</td><td>0.60</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine">Backlog = new orders minus units out: ▼ it shrank (we cleared more than came in), ▲ it grew. Red = behind the column to its right, green = ahead. A normal working day lately: 55 jobs and 60 new orders. Warranty returns are re-work on jobs already counted, so they add to output but never clear an order.</p>
+
+    <h4>The last 10 working days</h4>
+    <div class="pr-legend"><span><i class="j"></i>Jobs completed</span><span><i class="o"></i>New orders</span><span class="m">jobs / orders, then the difference</span></div>
+    <div class="pr-bars" role="img" aria-label="Jobs completed against new orders for each of the last ten working days">
+      <div class="pr-day"><span class="d">Tue 22</span><div class="b"><i class="j" style="width:84%"></i><i class="o" style="width:47%"></i></div><span class="v">95 / 53 <b class="up">+42</b></span></div>
+      <div class="pr-day"><span class="d">Wed 23</span><div class="b"><i class="j" style="width:100%"></i><i class="o" style="width:50%"></i></div><span class="v">113 / 57 <b class="up">+56</b></span></div>
+      <div class="pr-day"><span class="d">Thu 24</span><div class="b"><i class="j" style="width:83%"></i><i class="o" style="width:47%"></i></div><span class="v">94 / 53 <b class="up">+41</b></span></div>
+      <div class="pr-day"><span class="d">Fri 25</span><div class="b"><i class="j" style="width:50%"></i><i class="o" style="width:44%"></i></div><span class="v">57 / 50 <b class="up">+7</b></span></div>
+      <div class="pr-day"><span class="d">Mon 28</span><div class="b"><i class="j" style="width:84%"></i><i class="o" style="width:62%"></i></div><span class="v">95 / 70 <b class="up">+25</b></span></div>
+      <div class="pr-day"><span class="d">Tue 29</span><div class="b"><i class="j" style="width:50%"></i><i class="o" style="width:62%"></i></div><span class="v">56 / 70 <b class="dn">−14</b></span></div>
+      <div class="pr-day"><span class="d">Wed 30</span><div class="b"><i class="j" style="width:38%"></i><i class="o" style="width:36%"></i></div><span class="v">43 / 41 <b class="up">+2</b></span></div>
+      <div class="pr-day"><span class="d">Thu 1</span><div class="b"><i class="j" style="width:53%"></i><i class="o" style="width:62%"></i></div><span class="v">60 / 70 <b class="dn">−10</b></span></div>
+      <div class="pr-day"><span class="d">Fri 2</span><div class="b"><i class="j" style="width:53%"></i><i class="o" style="width:61%"></i></div><span class="v">60 / 69 <b class="dn">−9</b></span></div>
+      <div class="pr-day now"><span class="d">Mon 5</span><div class="b"><i class="j" style="width:34%"></i><i class="o" style="width:45%"></i></div><span class="v">38 / 51 <b class="dn">−13</b></span></div>
+    </div>
+    <p class="fine">Weekend orders are added to the Monday after. A run of red means the backlog is building: four working days in a row here.</p>
+
+    <h4>Wait times by product line</h4>
+    <div class="tbl">
+      <table class="pr-table">
+        <thead><tr><th>Product line</th><th>4 in 5 done in<small>working days</small></th><th>vs a week ago</th><th>With us<small>orders now</small></th><th>This week<small>done / new</small></th></tr></thead>
+        <tbody>
+          <tr><td><b>Product Iota</b></td><td><span class="wt r">13 days</span></td><td class="up">▼ better · was 15</td><td>34</td><td>4 / 1</td></tr>
+          <tr><td><b>Product Alpha</b></td><td><span class="wt r">12 days</span></td><td>steady</td><td>110</td><td>6 / 5</td></tr>
+          <tr><td><b>Product Delta</b></td><td><span class="wt r">11 days</span></td><td>steady</td><td>115</td><td class="dn">4 / 11</td></tr>
+          <tr><td><b>Product Eta</b></td><td><span class="wt r">11 days</span></td><td>steady</td><td>57</td><td>4 / 3</td></tr>
+          <tr><td><b>Product Theta</b></td><td><span class="wt r">10 days</span></td><td class="up">▼ better · was 11</td><td>32</td><td class="dn">0 / 8</td></tr>
+          <tr><td><b>Product Epsilon</b></td><td><span class="wt a">8 days</span></td><td class="up">▼ better · was 9</td><td>43</td><td class="dn">0 / 7</td></tr>
+          <tr><td><b>Product Beta</b></td><td><span class="wt a">8 days</span></td><td>steady</td><td>27</td><td>0 / 1</td></tr>
+          <tr><td><b>Product Zeta</b></td><td><span class="wt g">2 days</span></td><td class="up">▼ better · was 3</td><td>14</td><td>6 / 1</td></tr>
+          <tr><td><b>Product Gamma</b></td><td><span class="wt g">2 days</span></td><td>steady</td><td>24</td><td>10 / 9</td></tr>
+          <tr class="total"><td>Whole workshop</td><td>10 days</td><td>steady</td><td>490</td><td>38 / 51</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine"><span class="wt r">10+ days</span> <span class="wt a">5–9 days</span> <span class="wt g">under 5</span> Working days from the unit arriving to the job being finished, for 4 in 5 jobs finished in the last 30 days. Customers are told one more day for shipping. Smaller lines make up the rest of the workshop total.</p>
+
+    <h4>Where the backlog stands</h4>
+    <div class="facts pr-facts">
+      <div>With us now<b>490 orders</b><span>unit here, waiting for or on the bench · up 81 on a week ago</span></div>
+      <div>Waiting on the customer<b>398 orders</b><span>unit or form not sent in yet</span></div>
+      <div>Past their due date<b>124 activities</b><span>out of 211 open with the technicians this morning</span></div>
+      <div>Oldest job with us<b>31 working days</b><span>named on the dashboard, with its owner</span></div>
+    </div>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>How these are counted</b> <span class="sum-h">one definition per number, the same every day</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <p><b>Job</b> = an order finished for the first time, as recorded on the help desk. A ticket reopened later is never counted twice. <b>Warranty return</b> = re-work on a returned unit: extra work, never inside jobs. <b>New orders</b> = paid orders from the books by order date, one per order; cancelled orders and shipping-only charges never count. <b>Activity</b> = a help-desk task closed by a technician; late = closed after its due date. <b>Technician hours</b> = hours on the payroll timesheets, leave and holidays excluded; a day with no hours and no leave booked is flagged by name. <b>Wait time</b> = working days from the unit arriving to the job being finished, weekends and company holidays skipped.</p>
+      </div>
+    </details>
+    <p class="fine">Example from client work. Products renamed Alpha to Iota, technicians renamed, and every figure changed, so the business cannot be identified.</p>
+  </article>
+
+  <div class="next">
+    <p>The report is the morning summary. Behind it sits a live dashboard: every technician’s scoreboard, the date we can promise a customer for any ticket, and every open order with whose move it is.</p>
+    <div class="button-row" style="margin-top:0"><a class="btn key" href="../../examples/workshop/production-dashboard.html">See the production dashboard</a><a class="btn" href="../../solve.html">Bring us one problem to solve</a></div>
+  </div>
+</main>
+<footer class="site-foot">
+  <span>© 2026 DC3-AI · Performance Optimisation</span>
+  <span>Client examples are anonymised. Figures are rounded or illustrative.</span>
+</footer>
+<script>
+  // Copy buttons: any button with data-copy="<element id>" copies that element's text.
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected: press Ctrl+C';
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = label; }, 1800);
+        }, fallback);
+      } else { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>
