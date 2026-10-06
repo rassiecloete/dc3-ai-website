@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fortnightly Tracker Example · DC3-AI</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=EB+Garamond:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   DC3 Marketing — design tokens
+   v1.2.0  ·  2026-09-16  ·  wordmark now "DC3-AI" in EB Garamond (v1.0.0 2026-05-21)
+   Drop-in CSS custom properties. Reference as var(--token-name).
+   ──────────────────────────────────────────────────────── */
+
+:root {
+  /* ─── Canvas — Sage-bone ─── */
+  --bg:           #d4cabc;  /* page background */
+  --ink:          #0f1724;  /* primary text, wordmark */
+  --surface:      #e2dacd;  /* cards, grouped panels */
+  --surface-high: #ebe4d8;  /* elevated / featured cards */
+  --cream:        #efe6d3;  /* warm highlight, action boxes */
+
+  /* ─── Text tones ─── */
+  --text-dim:     #475569;  /* body copy */
+  --text-muted:   #78716c;  /* eyebrows, captions, metadata */
+
+  /* ─── Borders ─── */
+  --border:       #b8ad9a;  /* default dividers, card outlines */
+  --border-soft:  #c7bcab;  /* faint section breaks */
+
+  /* ─── Brass accent family ─── */
+  --brass:        #9c7a3e;  /* primary accent — mark, links */
+  --brass-deep:   #7a5b24;  /* hover / pressed state */
+  --brass-soft:   #c9a876;  /* highlights, tints, soft fills */
+
+  /* ─── Severity tones (warm-canvas tuned) ─── */
+  --sev-positive:     #6b8a5d;
+  --sev-positive-bg:  #d4dcc7;
+  --sev-positive-fg:  #3d4f33;
+
+  --sev-tracking:     #78716c;
+  --sev-tracking-bg:  #d9d2c4;
+  --sev-tracking-fg:  #4a4540;
+
+  --sev-emerging:     #b08a2c;
+  --sev-emerging-bg:  #ebdcbe;
+  --sev-emerging-fg:  #6b5520;
+
+  --sev-developing:   #b8682c;
+  --sev-developing-bg:#e8cea9;
+  --sev-developing-fg:#6b3e16;
+
+  --sev-confirmed:    #b04a36;
+  --sev-confirmed-bg: #e7c8bf;
+  --sev-confirmed-fg: #6b2a1d;
+
+  /* ─── Type stack ─── */
+  --font-display: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-wordmark:'EB Garamond', Garamond, Georgia, 'Times New Roman', serif;  /* logo only — load from Google Fonts */
+
+  /* ─── Logo geometry — v1.1 ───
+     Lines follow a clean 1 : 2 : 3 ratio (top : middle : bottom).
+     Vertical gaps are even integer 3px between each line.
+     Container 18 × 12 (3:2 aspect ratio).
+     The whole lock-up scales via --lockup-scale on .brand-mark. */
+  --logo-base-width:    18px;  /* longest (bottom) line + container width */
+  --logo-base-height:   12px;  /* container height */
+  --logo-stroke:         2px;  /* line thickness */
+  --logo-line-top:       6px;  /* 1/3 of base — top line */
+  --logo-line-mid:      12px;  /* 2/3 of base — middle line */
+  --logo-line-bot:      18px;  /* 3/3 of base — bottom line */
+  --logo-y-mid:          5px;  /* middle-line y-position (even 3px gap below top) */
+  --logo-y-bot:         10px;  /* bottom-line y-position (even 3px gap below middle) */
+  --logo-gap:            9px;  /* gap between mark and wordmark (= half the icon width) */
+  --logo-font-size:  18.46px;  /* wordmark size at scale 1: EB Garamond cap height 0.65em → 12px caps, level with the bars */
+}
+
+/* ────────────────────────────────────────────────────────────
+   Base font + body defaults — opt-in by adding .dc3-page to <body>
+   or applying these values via your own selectors.
+   ───────────────────────────────────────────────────────────── */
+
+.dc3-page {
+  font-family: var(--font-display);
+  background: var(--bg);
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dc3-page .mono { font-family: var(--font-mono); letter-spacing: 0.04em; }
+
+/* ─────────────────────────────────────────────────────────────
+   Logo mark — copy-paste class. Wrap with .brand-mark wordmark text.
+   The wordmark text is "DC3-AI" (hyphen), EB Garamond 500. Prefer the outlined
+   SVGs in assets/ wherever an image will do; use this class for live text.
+   ───────────────────────────────────────────────────────────── */
+
+/* The whole lock-up scales by overriding --lockup-scale on .brand-mark.
+   Default scale = 1 (icon 18×12, wordmark 16px). For 1.5×, 2×, etc.,
+   set style="--lockup-scale: 1.5;" or apply .brand-mark.lg / .brand-mark.xl. */
+.brand-mark {
+  --lockup-scale: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--logo-gap) * var(--lockup-scale));
+  font-family: var(--font-wordmark);
+  font-weight: 500;
+  font-size: calc(var(--logo-font-size) * var(--lockup-scale));
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+.brand-mark.lg { --lockup-scale: 1.5; }
+.brand-mark.xl { --lockup-scale: 2; }
+.brand-mark.xxl { --lockup-scale: 3; }
+
+.brand-mark::before {
+  content: "";
+  display: inline-block;
+  width:  calc(var(--logo-base-width)  * var(--lockup-scale));
+  height: calc(var(--logo-base-height) * var(--lockup-scale));
+  background-image:
+    linear-gradient(var(--brass), var(--brass)),
+    linear-gradient(var(--brass), var(--brass)),
+    linear-gradient(var(--brass), var(--brass));
+  background-repeat: no-repeat;
+  background-size:
+    calc(var(--logo-line-top) * var(--lockup-scale)) calc(var(--logo-stroke) * var(--lockup-scale)),
+    calc(var(--logo-line-mid) * var(--lockup-scale)) calc(var(--logo-stroke) * var(--lockup-scale)),
+    calc(var(--logo-line-bot) * var(--lockup-scale)) calc(var(--logo-stroke) * var(--lockup-scale));
+  background-position:
+    0 0,
+    0 calc(var(--logo-y-mid) * var(--lockup-scale)),
+    0 calc(var(--logo-y-bot) * var(--lockup-scale));
+}
+
+/* ────────────────────────────────────────────────────────────
+   Severity pills — copy-paste class set.
+   ───────────────────────────────────────────────────────────── */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+
+.pill.positive   { background: var(--sev-positive-bg);   color: var(--sev-positive-fg); }
+.pill.positive   .dot { background: var(--sev-positive); }
+.pill.tracking   { background: var(--sev-tracking-bg);   color: var(--sev-tracking-fg); }
+.pill.tracking   .dot { background: var(--sev-tracking); }
+.pill.emerging   { background: var(--sev-emerging-bg);   color: var(--sev-emerging-fg); }
+.pill.emerging   .dot { background: var(--sev-emerging); }
+.pill.developing { background: var(--sev-developing-bg); color: var(--sev-developing-fg); }
+.pill.developing .dot { background: var(--sev-developing); }
+.pill.confirmed  { background: var(--sev-confirmed-bg);  color: var(--sev-confirmed-fg); }
+.pill.confirmed  .dot { background: var(--sev-confirmed); }
+
+/* ────────────────────────────────────────────────────────────
+   Tabular numbers — apply to any container holding figures.
+   ───────────────────────────────────────────────────────────── */
+
+.tnum { font-variant-numeric: tabular-nums; }
+
+body{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 20px 48px}
+.logo{height:22px;width:auto;display:block}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+h1{font-size:clamp(26px,4vw,34px);font-weight:700;margin:6px 0 6px;letter-spacing:-.01em}
+.sub{color:var(--text-dim);font-size:14px;margin:0 0 24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:0 0 18px}
+.card h2{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin:0 0 12px}
+.recon{border-left:3px solid var(--sev-positive)}
+.recon p{margin:0;font-size:14px;color:var(--text-dim)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.kpi .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
+.kpi .v{font-size:38px;font-weight:800;margin:4px 0 2px}
+.kpi .d{font-size:13px;color:var(--text-dim)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:8px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--border-soft);white-space:nowrap}
+td.lbl{font-weight:600} .rng{color:var(--text-muted);font-size:12px}
+tr.total td{border-top:1px solid var(--border);font-weight:700} tr.muted td{color:var(--text-muted)}
+.note{font-size:12px}
+.sig{padding:12px 0;border-bottom:1px solid var(--border-soft)} .sig:last-child{border-bottom:0}
+.sig-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap} .sig-n{font-weight:700;font-size:15px}
+.sig p{margin:6px 0 0;font-size:14px;color:var(--text-dim);line-height:1.55}
+.how ol{margin:0;padding-left:20px;color:var(--text-dim);font-size:14px;line-height:1.6}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+
+td.lbl a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--brass-soft)}
+td.lbl a:hover{color:var(--brass-deep);border-bottom-color:var(--brass)}
+html{scroll-behavior:smooth} section.prod{scroll-margin-top:16px}
+.prod-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.prod-h h3{font-size:20px;font-weight:700;margin:0}
+.back{margin-left:auto;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--brass-deep);text-decoration:none}
+.basis{font-size:13px;color:var(--text-muted);margin:6px 0 14px}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-bottom:14px}
+.sub-h{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px}
+.bp{margin-bottom:10px}.bp-l{font-size:12.5px;color:var(--text-dim);margin-bottom:3px}
+.bar{display:flex;align-items:center;gap:8px;height:16px;margin:2px 0}
+.bar span{display:block;height:10px;border-radius:3px}.bar b{font-size:12px;font-weight:600}
+.ty{background:var(--brass)}.py{background:var(--border)}
+.key{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+.key span{display:inline-block;width:10px;height:10px;border-radius:2px;margin-left:6px}
+table.cmp td,table.cmp th{padding:7px 8px}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.chip{background:var(--surface-high);border:1px solid var(--border-soft);border-radius:10px;padding:8px 10px}
+.chip-l{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.chip-a{font-size:18px;font-weight:700;margin:2px 0 4px}
+.watch{list-style:none;margin:0;padding:0}
+.watch li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--border-soft);font-size:14px;color:var(--text-dim)}
+.notes p{font-size:14px;color:var(--text-dim);margin:10px 0 0;line-height:1.55}
+.notes .mod{background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+details{margin-top:14px}summary{cursor:pointer;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-deep)}
+
+.foot{font-size:12px;color:var(--text-muted);font-style:italic;margin-top:24px}
+</style></head>
+<body class="dc3-page"><nav aria-label="Back to the website" style="background:#0f1724;color:#efe6d3;font:600 14px Manrope,system-ui,sans-serif;padding:12px 20px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between">
+  <span><a href="../index.html" style="color:#efe6d3;text-decoration:none">&larr; Examples</a> <span style="color:#c9a876;font-weight:500">&middot; Example from client work: products renamed, figures scaled</span></span>
+  <span style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><a href="management-pack.html" style="color:#efe6d3">Management pack</a><a href="../../solve.html" style="color:#0f1724;background:#efe6d3;text-decoration:none;padding:6px 12px;border-radius:999px">Bring us one problem to solve</a></span>
+</nav><div class="wrap">
+<div class="top"><svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.86 15.32" role="img" aria-label="DC3-AI">
+  <title>DC3-AI — horizontal lock-up (v2.0, EB Garamond 500)</title>
+  <g fill="#9c7a3e"><rect x="1.00" y="1.62" width="6.00" height="2.00"/><rect x="1.00" y="6.62" width="12.00" height="2.00"/><rect x="1.00" y="11.62" width="18.00" height="2.00"/></g>
+  <path fill="#0f1724" d="M34.46 13.75Q34.12 13.75 33.44 13.71Q32.77 13.68 32.01 13.65Q31.25 13.62 30.66 13.62Q30.29 13.62 29.97 13.64Q29.65 13.65 29.3 13.68Q28.95 13.7 28.48 13.7Q28.27 13.7 28.14 13.64Q28 13.58 28 13.45Q28 13.3 28.13 13.24Q28.26 13.18 28.53 13.13Q29.24 12.99 29.5 12.72Q29.77 12.44 29.77 11.81V3.48Q29.77 2.83 29.51 2.57Q29.25 2.3 28.53 2.16Q28.26 2.11 28.13 2.04Q28 1.96 28 1.81Q28 1.68 28.14 1.62Q28.27 1.56 28.48 1.56Q28.94 1.56 29.29 1.57Q29.64 1.58 29.97 1.59Q30.31 1.61 30.73 1.61Q31.02 1.61 31.49 1.59Q31.95 1.57 32.47 1.53Q32.98 1.5 33.42 1.48Q33.87 1.46 34.11 1.46Q35.82 1.46 37.1 1.9Q38.38 2.35 39.23 3.15Q40.08 3.95 40.52 5.02Q40.95 6.1 40.95 7.35Q40.95 8.64 40.47 9.8Q39.99 10.95 39.12 11.85Q38.25 12.74 37.06 13.24Q35.88 13.75 34.46 13.75ZM34.22 13Q35.6 13 36.61 12.33Q37.62 11.66 38.17 10.47Q38.72 9.28 38.72 7.72Q38.72 6.43 38.34 5.4Q37.96 4.37 37.3 3.65Q36.64 2.94 35.78 2.56Q34.93 2.17 33.98 2.17Q33.26 2.17 32.76 2.22Q32.25 2.26 31.99 2.47Q31.72 2.67 31.72 3.15V11.32Q31.72 12.01 32.07 12.37Q32.41 12.74 32.98 12.87Q33.55 13 34.22 13ZM49.03 13.89Q47.69 13.89 46.47 13.45Q45.25 13.01 44.3 12.2Q43.35 11.38 42.81 10.24Q42.27 9.09 42.27 7.7Q42.27 6.38 42.82 5.23Q43.37 4.09 44.36 3.22Q45.35 2.36 46.67 1.87Q47.99 1.38 49.51 1.38Q50.19 1.38 50.72 1.44Q51.26 1.51 51.76 1.62Q52.26 1.74 52.83 1.91Q53.07 1.98 53.19 2.12Q53.31 2.26 53.33 2.5Q53.38 2.99 53.43 3.51Q53.48 4.03 53.49 4.66Q53.5 4.81 53.36 4.89Q53.22 4.97 53.05 4.92Q52.89 4.88 52.83 4.67Q52.66 4.06 52.45 3.59Q52.23 3.11 51.8 2.79Q51.36 2.45 50.71 2.26Q50.06 2.08 49.24 2.08Q48.22 2.08 47.35 2.5Q46.49 2.92 45.87 3.66Q45.26 4.39 44.92 5.31Q44.57 6.23 44.57 7.23Q44.57 8.39 44.9 9.46Q45.22 10.53 45.85 11.37Q46.47 12.2 47.35 12.69Q48.23 13.18 49.33 13.18Q50.68 13.18 51.54 12.58Q52.4 11.99 53 10.85Q53.13 10.59 53.39 10.59Q53.65 10.6 53.65 10.89Q53.65 11.07 53.58 11.4Q53.52 11.73 53.41 12.1Q53.3 12.47 53.18 12.8Q53.07 13.04 52.98 13.13Q52.88 13.22 52.62 13.31Q51.93 13.6 50.98 13.75Q50.03 13.89 49.03 13.89ZM57.5 14.32Q57.08 14.32 56.62 14.19Q56.16 14.06 55.84 13.86Q55.52 13.67 55.52 13.49Q55.52 13.33 55.64 13.1Q55.77 12.88 55.94 12.71Q56.12 12.55 56.27 12.55Q56.46 12.55 56.61 12.64Q56.75 12.74 56.92 12.88Q57.16 13.12 57.49 13.35Q57.82 13.59 58.31 13.59Q58.96 13.59 59.52 13.25Q60.09 12.91 60.45 12.3Q60.8 11.69 60.8 10.91Q60.8 10.18 60.58 9.54Q60.35 8.9 59.9 8.51Q59.45 8.11 58.78 8.11Q58.49 8.11 58.16 8.19Q57.84 8.28 57.58 8.43Q57.47 8.49 57.33 8.41Q57.19 8.34 57.21 8.23Q57.29 7.94 57.47 7.76Q57.64 7.57 57.85 7.48Q58.15 7.33 58.53 7.1Q58.91 6.86 59.28 6.54Q59.65 6.22 59.89 5.82Q60.13 5.42 60.13 4.93Q60.13 4.23 59.67 3.7Q59.21 3.17 58.49 3.17Q57.84 3.17 57.42 3.42Q57.01 3.66 56.75 3.97Q56.49 4.28 56.35 4.52Q56.21 4.76 56.1 4.76Q56.01 4.76 55.89 4.64Q55.78 4.52 55.78 4.38Q55.78 4.16 55.98 3.77Q56.18 3.38 56.62 2.97Q57.06 2.56 57.74 2.28Q58.42 2 59.39 2Q60.04 2 60.61 2.27Q61.18 2.54 61.54 3.02Q61.9 3.5 61.9 4.15Q61.9 4.58 61.69 5.08Q61.48 5.58 61.01 6.06Q60.54 6.53 59.76 6.88Q59.71 6.89 59.71 6.94Q59.71 6.99 59.78 6.99Q60.63 6.99 61.3 7.37Q61.97 7.75 62.37 8.4Q62.76 9.05 62.76 9.88Q62.76 10.91 62.32 11.73Q61.87 12.55 61.12 13.13Q60.36 13.71 59.43 14.02Q58.49 14.32 57.5 14.32ZM63.64 8.19Q63.5 8.2 63.5 8.06Q63.5 7.61 63.59 7.25Q63.69 6.89 63.85 6.86Q64.8 6.72 65.85 6.58Q66.89 6.45 67.81 6.36Q67.92 6.36 67.97 6.4Q68.02 6.45 68.02 6.54Q68.01 6.98 67.93 7.32Q67.86 7.65 67.63 7.69Q66.72 7.83 65.69 7.96Q64.65 8.09 63.64 8.19ZM68.34 13.71Q68.12 13.71 67.97 13.65Q67.83 13.59 67.83 13.45Q67.83 13.31 67.97 13.21Q68.12 13.12 68.38 13.03Q68.88 12.89 69.28 12.59Q69.68 12.28 69.95 11.68Q70.44 10.55 70.87 9.53Q71.29 8.5 71.68 7.51Q72.07 6.51 72.47 5.46Q72.88 4.4 73.31 3.2Q73.47 2.77 73.54 2.48Q73.62 2.19 73.65 1.98Q73.87 1.91 74.08 1.85Q74.29 1.78 74.52 1.67Q74.74 1.55 74.86 1.34Q74.99 1.12 75.06 1.03Q75.1 1.01 75.15 1Q75.19 1 75.23 1.06Q75.27 1.15 75.31 1.27Q75.34 1.38 75.38 1.5Q75.8 2.85 76.25 4.25Q76.71 5.64 77.15 6.97Q77.59 8.3 77.98 9.44Q78.37 10.57 78.64 11.42Q78.85 12.03 79.12 12.36Q79.39 12.69 79.71 12.84Q80.02 12.99 80.39 13.07Q80.66 13.13 80.8 13.24Q80.94 13.34 80.94 13.49Q80.94 13.6 80.81 13.65Q80.68 13.7 80.46 13.7Q80.17 13.7 79.69 13.67Q79.21 13.65 78.69 13.62Q78.18 13.6 77.75 13.6Q77.4 13.6 76.98 13.6Q76.56 13.61 76.18 13.62Q75.79 13.64 75.52 13.64Q75.31 13.64 75.17 13.58Q75.03 13.52 75.03 13.4Q75.03 13.26 75.19 13.17Q75.36 13.07 75.58 13.03Q76.21 12.93 76.49 12.7Q76.77 12.47 76.73 12.11Q76.7 11.8 76.59 11.33Q76.47 10.85 76.33 10.32Q76.18 9.79 76.05 9.36Q76.01 9.21 75.93 9.17Q75.84 9.13 75.61 9.13H72.2Q72.11 9.13 72.03 9.2Q71.95 9.27 71.89 9.45Q71.83 9.67 71.71 10.01Q71.6 10.36 71.48 10.74Q71.37 11.12 71.28 11.44Q71.2 11.75 71.18 11.9Q71.13 12.36 71.41 12.63Q71.7 12.91 72.27 13.05Q72.82 13.19 72.82 13.43Q72.82 13.54 72.69 13.59Q72.55 13.65 72.33 13.65Q71.98 13.65 71.52 13.62Q71.06 13.6 70.53 13.6Q69.94 13.6 69.39 13.66Q68.84 13.71 68.34 13.71ZM72.71 8.38H75.41Q75.67 8.38 75.67 8.28Q75.67 8.23 75.66 8.19Q75.65 8.15 75.64 8.09L74.27 3.71Q74.18 3.42 74.12 3.42Q74.08 3.42 73.98 3.7L72.38 8.09Q72.34 8.19 72.34 8.24Q72.34 8.33 72.44 8.36Q72.54 8.38 72.71 8.38ZM81.55 13.7Q81.35 13.7 81.21 13.65Q81.08 13.6 81.08 13.48Q81.08 13.23 81.61 13.13Q82.31 12.99 82.65 12.72Q82.99 12.44 82.99 11.82V3.46Q82.99 2.83 82.73 2.57Q82.47 2.3 81.75 2.16Q81.22 2.06 81.22 1.78Q81.22 1.66 81.36 1.61Q81.49 1.56 81.7 1.56Q82.17 1.56 82.54 1.57Q82.92 1.59 83.27 1.61Q83.62 1.62 84.03 1.62Q84.43 1.62 84.76 1.61Q85.09 1.6 85.46 1.58Q85.82 1.56 86.29 1.56Q86.5 1.56 86.63 1.61Q86.76 1.66 86.76 1.79Q86.76 1.93 86.63 2.02Q86.49 2.11 86.22 2.16Q85.52 2.32 85.23 2.58Q84.94 2.85 84.94 3.47V11.81Q84.94 12.42 85.29 12.7Q85.63 12.97 86.33 13.13Q86.6 13.18 86.73 13.25Q86.86 13.33 86.86 13.47Q86.86 13.59 86.74 13.64Q86.61 13.7 86.4 13.7Q85.93 13.7 85.54 13.67Q85.16 13.65 84.8 13.63Q84.44 13.61 84.03 13.61Q83.6 13.61 83.21 13.63Q82.83 13.65 82.43 13.68Q82.02 13.7 81.55 13.7Z"/>
+</svg>
+<div class="legend">
+<span class="pill positive"><span class="dot"></span>Healthy</span><span class="pill tracking"><span class="dot"></span>Tracking</span>
+<span class="pill emerging"><span class="dot"></span>Emerging</span><span class="pill developing"><span class="dot"></span>Developing</span>
+<span class="pill confirmed"><span class="dot"></span>Confirmed</span></div></div>
+
+<div class="eyebrow">Watchmen · fortnightly tracker · demo</div>
+<h1>Cycle 20 · day 12 of 14</h1>
+<p class="sub">Data through yesterday · every order counted once, at checkout · built fresh each morning</p>
+
+<div class="card recon"><h2>Reconciliation — before anything else</h2>
+<p>Last cycle: the order system holds 1,537 orders → 68 cancelled with nothing bought → <b>1,469</b>
+= the attribution model = this report. About two-thirds of orders came through paid channels — inside the normal band.
+Nothing missing on either side. If these three numbers ever disagree, the report says so at the top instead of carrying on.</p></div>
+
+<div class="card"><h2>Portfolio snapshot</h2><div class="kpis">
+<div class="kpi"><div class="k">This cycle so far</div><div class="v tnum">1,411</div><div class="d">+15% on last year · projected 1,499</div></div>
+<div class="kpi"><div class="k">Last 3 cycles, smoothed</div><div class="v tnum">1,463</div><div class="d">+15% on last year</div></div>
+<div class="kpi"><div class="k">Year to date</div><div class="v tnum">25,922</div><div class="d">+19% on last year</div></div>
+<div class="kpi"><div class="k">Cost per order, last 3</div><div class="v tnum">$124</div><div class="d">+7% vs the six cycles before</div></div>
+</div></div>
+
+<div class="card" id="overview"><h2>Per-product overview — click a product for its detail</h2><div class="tbl"><table>
+<tr><th>Product</th><th>So far</th><th>Projected (range)</th><th>Last cycle</th><th>3-cycle avg</th><th>This cycle YoY</th><th>3-cycle YoY</th><th>Read</th></tr>
+<tr><td class='lbl'><a href='#product-alpha'>Product Alpha</a></td><td class='tnum'>245</td><td class='tnum'>258 <span class='rng'>(221–296)</span></td><td class='tnum'>207</td><td class='tnum'>217</td><td class='tnum'>+20%</td><td class='tnum'>+15%</td><td><span class='pill positive'><span class='dot'></span>Growing</span></td></tr><tr><td class='lbl'><a href='#product-beta'>Product Beta</a></td><td class='tnum'>85</td><td class='tnum'>92 <span class='rng'>(78–105)</span></td><td class='tnum'>61</td><td class='tnum'>80</td><td class='tnum'>—</td><td class='tnum'>—</td><td><span class='pill positive'><span class='dot'></span>Growing</span></td></tr><tr><td class='lbl'><a href='#product-gamma'>Product Gamma</a></td><td class='tnum'>194</td><td class='tnum'>207 <span class='rng'>(177–238)</span></td><td class='tnum'>201</td><td class='tnum'>226</td><td class='tnum'>-15%</td><td class='tnum'>+5%</td><td><span class='pill emerging'><span class='dot'></span>Easing</span></td></tr><tr><td class='lbl'><a href='#product-delta'>Product Delta</a></td><td class='tnum'>279</td><td class='tnum'>296 <span class='rng'>(252–340)</span></td><td class='tnum'>313</td><td class='tnum'>326</td><td class='tnum'>-5%</td><td class='tnum'>-5%</td><td><span class='pill confirmed'><span class='dot'></span>Declining</span></td></tr><tr><td class='lbl'><a href='#product-epsilon'>Product Epsilon</a></td><td class='tnum'>163</td><td class='tnum'>173 <span class='rng'>(146–201)</span></td><td class='tnum'>170</td><td class='tnum'>188</td><td class='tnum'>+25%</td><td class='tnum'>+15%</td><td><span class='pill positive'><span class='dot'></span>Growing</span></td></tr><tr><td class='lbl'><a href='#product-zeta'>Product Zeta</a></td><td class='tnum'>105</td><td class='tnum'>112 <span class='rng'>(95–129)</span></td><td class='tnum'>88</td><td class='tnum'>103</td><td class='tnum'>—</td><td class='tnum'>—</td><td><span class='pill positive'><span class='dot'></span>Growing</span></td></tr><tr><td class='lbl'><a href='#product-eta'>Product Eta</a></td><td class='tnum'>102</td><td class='tnum'>109 <span class='rng'>(92–126)</span></td><td class='tnum'>146</td><td class='tnum'>134</td><td class='tnum'>—</td><td class='tnum'>—</td><td><span class='pill positive'><span class='dot'></span>Growing</span></td></tr><tr><td class='lbl'><a href='#product-theta'>Product Theta</a></td><td class='tnum'>68</td><td class='tnum'>71 <span class='rng'>(61–82)</span></td><td class='tnum'>54</td><td class='tnum'>56</td><td class='tnum'>—</td><td class='tnum'>—</td><td><span class='pill confirmed'><span class='dot'></span>Declining</span></td></tr><tr><td class='lbl'><a href='#product-iota'>Product Iota</a></td><td class='tnum'>58</td><td class='tnum'>61 <span class='rng'>(51–71)</span></td><td class='tnum'>71</td><td class='tnum'>61</td><td class='tnum'>—</td><td class='tnum'>—</td><td><span class='pill tracking'><span class='dot'></span>Steady</span></td></tr><tr class='muted'><td class='lbl'>Other products, net of two-product orders</td><td class='tnum'>112</td><td class='tnum'>119</td><td class='tnum'>156</td><td class='tnum'>74</td><td>—</td><td>—</td><td class='note'>not assessed</td></tr><tr class='total'><td class='lbl'>Total (each order once)</td><td class='tnum'>1,411</td><td class='tnum'>1,499 <span class='rng'>(1,275–1,724)</span></td><td class='tnum'>1,469</td><td class='tnum'>1,463</td><td class='tnum'>+15%</td><td class='tnum'>+15%</td><td><span class='pill positive'><span class='dot'></span>Growing</span></td></tr>
+</table></div>
+<p class="note" style="color:var(--text-muted);margin:10px 0 0">Products without a year of history are judged on their own trend, not on last year.
+Product rows count an order under every product it contains, so they add to more than the total.</p></div>
+
+<div class="card"><h2>Product signals — what the watchers say</h2><div class='sig'><div class='sig-h'><span class='sig-n'>Portfolio</span><span class='pill positive'><span class='dot'></span>Growing</span></div><p>Orders over the last three cycles are running about 15% ahead of last year, holding pace. Cost per order $124 over the last three cycles, 7% above the six before — inside its normal swing.</p></div><div class='sig'><div class='sig-h'><span class='sig-n'>Product Delta</span><span class='pill developing'><span class='dot'></span>Declining · held at Developing</span></div><p>Orders over the last three cycles are about 5% below last year, and the long-run trend agrees. Cost per order $107, 21% above the six cycles before. Enough watchers fire for Confirmed, but volume is still healthy, so the moderator holds the call at Developing — a cooling growth rate, watched closely, not yet a fall.</p></div><div class='sig'><div class='sig-h'><span class='sig-n'>Product Gamma</span><span class='pill emerging'><span class='dot'></span>Easing</span></div><p>Still ahead of last year, but growing more slowly than before. The level is healthy, so this reads as growth easing, not decline — the moderator stops it being raised as an alarm.</p></div><div class='sig'><div class='sig-h'><span class='sig-n'>Product Alpha</span><span class='pill positive'><span class='dot'></span>Growing · Emerging rise</span></div><p>Orders running about 15% ahead of last year; the most recent cycles are stronger still. Cost per order $107, 24% above the six cycles before — worth watching alongside the growth.</p></div><div class='sig'><div class='sig-h'><span class='sig-n'>Product Zeta</span><span class='pill positive'><span class='dot'></span>Growing · low confidence</span></div><p>Too young for a year-on-year read, so it is judged on its own recent trend: rising, but the last couple of cycles are choppy. The tracker says so rather than overstating it.</p></div></div>
+
+<div class="eyebrow" style="margin:28px 0 10px">Product detail</div>
+
+<section class="card prod" id="product-alpha">
+  <div class="prod-h"><h3>Product Alpha</h3><span class='pill positive'><span class='dot'></span>Growing</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on year-on-year history — this product against the same cycles last year.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">This year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:100%'></span><b class='tnum'>258</b></div><div class='bar'><span class='py' style='width:84%'></span><b class='tnum'>218</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:84%'></span><b class='tnum'>218</b></div><div class='bar'><span class='py' style='width:74%'></span><b class='tnum'>190</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:72%'></span><b class='tnum'>187</b></div><div class='bar'><span class='py' style='width:71%'></span><b class='tnum'>184</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>218</td><td class='tnum'>+15%</td><td class='tnum'>187</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>+15%</td><td class='tnum'>+10 pts</td><td class='tnum'>+5%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$107</td><td class='tnum'>+25%</td><td class='tnum'>$86</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the growth rate — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↓</div><span class='pill emerging'><span class='dot'></span>Emerging</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↓</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: growth on last year +10 points</span><span class='pill tracking'><span class='dot'></span>OK</span></li><li><span>Not below its baseline</span><span class='pill tracking'><span class='dot'></span>OK</span></li><li><span>Long trend in the growth rate</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li></ul>
+  <div class="notes"><p><b>Pattern:</b> Volatile — frequently alternates; single-fortnight readings are low signal.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>207</td><td class='tnum'>245</td><td class='tnum'>221</td><td class='tnum'>194</td><td class='tnum'>201</td><td class='tnum'>180</td><td class='tnum'>194</td><td class='tnum'>180</td><td class='tnum'>211</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>-15%</td><td class='tnum'>+10%</td><td class='tnum'>+15%</td><td class='tnum'>-5%</td><td class='tnum'>+10%</td><td class='tnum'>-5%</td><td class='tnum'>+10%</td><td class='tnum'>-15%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>-5%</td><td class='tnum'>+65%</td><td class='tnum'>+10%</td><td class='tnum'>-5%</td><td class='tnum'>+20%</td><td class='tnum'>+35%</td><td class='tnum'>+10%</td><td class='tnum'>-20%</td><td class='tnum'>+25%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$118</td><td class='tnum'>$102</td><td class='tnum'>$105</td><td class='tnum'>$97</td><td class='tnum'>$89</td><td class='tnum'>$79</td><td class='tnum'>$93</td><td class='tnum'>$92</td><td class='tnum'>$73</td></tr><tr><td class='lbl'>Cost per order, last year</td><td class='tnum'>$55</td><td class='tnum'>$63</td><td class='tnum'>$67</td><td class='tnum'>$67</td><td class='tnum'>$59</td><td class='tnum'>$67</td><td class='tnum'>$47</td><td class='tnum'>$34</td><td class='tnum'>$76</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-beta">
+  <div class="prod-h"><h3>Product Beta</h3><span class='pill positive'><span class='dot'></span>Growing</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on its own recent trend — not enough history yet for a fair year-on-year read.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">Volume — this year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:87%'></span><b class='tnum'>92</b></div><div class='bar'><span class='py' style='width:100%'></span><b class='tnum'>105</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:74%'></span><b class='tnum'>78</b></div><div class='bar'><span class='py' style='width:90%'></span><b class='tnum'>95</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:71%'></span><b class='tnum'>75</b></div><div class='bar'><span class='py' style='width:84%'></span><b class='tnum'>88</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>78</td><td class='tnum'>+10%</td><td class='tnum'>75</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$111</td><td class='tnum'>-5%</td><td class='tnum'>$115</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the order volume — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↓</div><span class='pill emerging'><span class='dot'></span>Emerging</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: +6 orders a cycle (+10%)</span><span class='pill tracking'><span class='dot'></span>OK</span></li><li><span>Below its own baseline 2 cycles running</span><span class='pill developing'><span class='dot'></span>Developing</span></li><li><span>Medium trend in the order volume</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li></ul>
+  <div class="notes"><p><b>Early-downturn watch:</b> all clear — no early sign of a downturn.</p><p><b>Pattern:</b> Early stage — last reading below 3-fortnight avg, flat trajectory.</p><p><b>Ad-account changes:</b> none this cycle.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>61</td><td class='tnum'>99</td><td class='tnum'>82</td><td class='tnum'>82</td><td class='tnum'>51</td><td class='tnum'>82</td><td class='tnum'>58</td><td class='tnum'>99</td><td class='tnum'>68</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>-40%</td><td class='tnum'>+20%</td><td class='tnum'>0%</td><td class='tnum'>+60%</td><td class='tnum'>-40%</td><td class='tnum'>+40%</td><td class='tnum'>-40%</td><td class='tnum'>+45%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$176</td><td class='tnum'>$83</td><td class='tnum'>$100</td><td class='tnum'>$96</td><td class='tnum'>$139</td><td class='tnum'>$111</td><td class='tnum'>$160</td><td class='tnum'>$88</td><td class='tnum'>$124</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-gamma">
+  <div class="prod-h"><h3>Product Gamma</h3><span class='pill emerging'><span class='dot'></span>Still growing, just slower</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on year-on-year history — this product against the same cycles last year.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">This year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:85%'></span><b class='tnum'>207</b></div><div class='bar'><span class='py' style='width:100%'></span><b class='tnum'>245</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:92%'></span><b class='tnum'>224</b></div><div class='bar'><span class='py' style='width:89%'></span><b class='tnum'>218</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:100%'></span><b class='tnum'>245</b></div><div class='bar'><span class='py' style='width:89%'></span><b class='tnum'>218</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>224</td><td class='tnum'>-5%</td><td class='tnum'>245</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>+5%</td><td class='tnum'>-10 pts</td><td class='tnum'>+15%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$121</td><td class='tnum'>+25%</td><td class='tnum'>$94</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the growth rate — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↓</div><span class='pill emerging'><span class='dot'></span>Emerging</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: growth on last year -10 points</span><span class='pill developing'><span class='dot'></span>Developing</span></li><li><span>Below its own baseline 4 cycles running</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Recent trend in the growth rate</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Long trend in the growth rate</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li></ul>
+  <div class="notes"><p><b>Pattern:</b> Volatile — frequently alternates; single-fortnight readings are low signal.</p><p><b>Ad-account changes:</b> none this cycle.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>201</td><td class='tnum'>211</td><td class='tnum'>221</td><td class='tnum'>241</td><td class='tnum'>265</td><td class='tnum'>231</td><td class='tnum'>289</td><td class='tnum'>224</td><td class='tnum'>197</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>-5%</td><td class='tnum'>-5%</td><td class='tnum'>-10%</td><td class='tnum'>-10%</td><td class='tnum'>+15%</td><td class='tnum'>-20%</td><td class='tnum'>+30%</td><td class='tnum'>+15%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>-15%</td><td class='tnum'>+5%</td><td class='tnum'>-5%</td><td class='tnum'>+30%</td><td class='tnum'>+10%</td><td class='tnum'>+30%</td><td class='tnum'>+35%</td><td class='tnum'>+15%</td><td class='tnum'>-15%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$122</td><td class='tnum'>$118</td><td class='tnum'>$121</td><td class='tnum'>$96</td><td class='tnum'>$90</td><td class='tnum'>$106</td><td class='tnum'>$81</td><td class='tnum'>$102</td><td class='tnum'>$98</td></tr><tr><td class='lbl'>Cost per order, last year</td><td class='tnum'>$92</td><td class='tnum'>$106</td><td class='tnum'>$94</td><td class='tnum'>$101</td><td class='tnum'>$85</td><td class='tnum'>$117</td><td class='tnum'>$93</td><td class='tnum'>$98</td><td class='tnum'>$92</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-delta">
+  <div class="prod-h"><h3>Product Delta</h3><span class='pill confirmed'><span class='dot'></span>Declining</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on year-on-year history — this product against the same cycles last year.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">This year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:84%'></span><b class='tnum'>296</b></div><div class='bar'><span class='py' style='width:89%'></span><b class='tnum'>313</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:93%'></span><b class='tnum'>326</b></div><div class='bar'><span class='py' style='width:100%'></span><b class='tnum'>350</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:96%'></span><b class='tnum'>337</b></div><div class='bar'><span class='py' style='width:99%'></span><b class='tnum'>347</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>326</td><td class='tnum'>-5%</td><td class='tnum'>337</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>-5%</td><td class='tnum'>-5 pts</td><td class='tnum'>0%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$107</td><td class='tnum'>+20%</td><td class='tnum'>$89</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the growth rate — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↓</div><span class='pill emerging'><span class='dot'></span>Emerging</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↓</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: growth on last year -5 points</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li><li><span>Below its own baseline 3 cycles running</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Recent trend in the growth rate</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li><li><span>Short trend in the growth rate</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Medium trend in the growth rate</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Long trend in the growth rate</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li></ul>
+  <div class="notes"><p class='mod'><b>Moderator engaged — Confirmed held at Developing.</b> The watchers are firing on the year-on-year growth rate, but order volume is still healthy, so this reads as growth cooling rather than a product in decline.</p><p><b>Pattern:</b> Broadly negative — below baseline 4 of last 6 fortnights.</p><p><b>Ad-account changes:</b> none this cycle.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>313</td><td class='tnum'>320</td><td class='tnum'>340</td><td class='tnum'>337</td><td class='tnum'>286</td><td class='tnum'>309</td><td class='tnum'>354</td><td class='tnum'>316</td><td class='tnum'>371</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>0%</td><td class='tnum'>-5%</td><td class='tnum'>0%</td><td class='tnum'>+20%</td><td class='tnum'>-10%</td><td class='tnum'>-10%</td><td class='tnum'>+10%</td><td class='tnum'>-15%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>-15%</td><td class='tnum'>-15%</td><td class='tnum'>0%</td><td class='tnum'>-5%</td><td class='tnum'>-10%</td><td class='tnum'>-10%</td><td class='tnum'>+10%</td><td class='tnum'>-15%</td><td class='tnum'>+10%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$109</td><td class='tnum'>$126</td><td class='tnum'>$89</td><td class='tnum'>$72</td><td class='tnum'>$105</td><td class='tnum'>$103</td><td class='tnum'>$77</td><td class='tnum'>$97</td><td class='tnum'>$81</td></tr><tr><td class='lbl'>Cost per order, last year</td><td class='tnum'>$81</td><td class='tnum'>$75</td><td class='tnum'>$85</td><td class='tnum'>$81</td><td class='tnum'>$94</td><td class='tnum'>$85</td><td class='tnum'>$84</td><td class='tnum'>$77</td><td class='tnum'>$105</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-epsilon">
+  <div class="prod-h"><h3>Product Epsilon</h3><span class='pill positive'><span class='dot'></span>Growing</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on year-on-year history — this product against the same cycles last year.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">This year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:93%'></span><b class='tnum'>173</b></div><div class='bar'><span class='py' style='width:75%'></span><b class='tnum'>139</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:100%'></span><b class='tnum'>187</b></div><div class='bar'><span class='py' style='width:87%'></span><b class='tnum'>163</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:85%'></span><b class='tnum'>160</b></div><div class='bar'><span class='py' style='width:75%'></span><b class='tnum'>139</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>187</td><td class='tnum'>+20%</td><td class='tnum'>160</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>+20%</td><td class='tnum'>+0 pts</td><td class='tnum'>+15%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$93</td><td class='tnum'>+5%</td><td class='tnum'>$89</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the growth rate — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↓</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: growth on last year +0 points</span><span class='pill tracking'><span class='dot'></span>OK</span></li><li><span>Not below its baseline</span><span class='pill tracking'><span class='dot'></span>OK</span></li><li><span>Medium trend in the growth rate</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Long trend in the growth rate</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Very long trend in the growth rate</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li></ul>
+  <div class="notes"><p class='mod'><b>Moderator engaged — Confirmed held at Developing.</b> The watchers are firing on the year-on-year growth rate, but order volume is still healthy, so this reads as growth cooling rather than a product in decline.</p><p><b>Pattern:</b> Broadly negative — below baseline 4 of last 6 fortnights.</p><p><b>Ad-account changes:</b> none this cycle.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>170</td><td class='tnum'>194</td><td class='tnum'>228</td><td class='tnum'>143</td><td class='tnum'>170</td><td class='tnum'>163</td><td class='tnum'>163</td><td class='tnum'>167</td><td class='tnum'>160</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>-10%</td><td class='tnum'>-15%</td><td class='tnum'>+60%</td><td class='tnum'>-15%</td><td class='tnum'>+5%</td><td class='tnum'>0%</td><td class='tnum'>0%</td><td class='tnum'>+5%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Growth on last year</td><td class='tnum'>+10%</td><td class='tnum'>-5%</td><td class='tnum'>+55%</td><td class='tnum'>+15%</td><td class='tnum'>-15%</td><td class='tnum'>+35%</td><td class='tnum'>+10%</td><td class='tnum'>+20%</td><td class='tnum'>0%</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$90</td><td class='tnum'>$105</td><td class='tnum'>$84</td><td class='tnum'>$100</td><td class='tnum'>$80</td><td class='tnum'>$85</td><td class='tnum'>$86</td><td class='tnum'>$88</td><td class='tnum'>$97</td></tr><tr><td class='lbl'>Cost per order, last year</td><td class='tnum'>$55</td><td class='tnum'>$29</td><td class='tnum'>$42</td><td class='tnum'>$37</td><td class='tnum'>$24</td><td class='tnum'>$50</td><td class='tnum'>$42</td><td class='tnum'>$30</td><td class='tnum'>$30</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-zeta">
+  <div class="prod-h"><h3>Product Zeta</h3><span class='pill positive'><span class='dot'></span>Growing</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on its own recent trend — not enough history yet for a fair year-on-year read.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">Volume — this year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:100%'></span><b class='tnum'>112</b></div><div class='bar'><span class='py' style='width:64%'></span><b class='tnum'>71</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:91%'></span><b class='tnum'>102</b></div><div class='bar'><span class='py' style='width:61%'></span><b class='tnum'>68</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:79%'></span><b class='tnum'>88</b></div><div class='bar'><span class='py' style='width:67%'></span><b class='tnum'>75</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>102</td><td class='tnum'>+15%</td><td class='tnum'>88</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$166</td><td class='tnum'>-5%</td><td class='tnum'>$176</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the order volume — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: +14 orders a cycle (+15%)</span><span class='pill tracking'><span class='dot'></span>OK</span></li><li><span>Not below its baseline</span><span class='pill tracking'><span class='dot'></span>OK</span></li></ul>
+  <div class="notes"><p><b>Early-downturn watch:</b> all clear — no early sign of a downturn.</p><p><b>Pattern:</b> Early stage — last reading below 3-fortnight avg, flat trajectory.</p><p><b>Ad-account changes:</b> none this cycle.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>88</td><td class='tnum'>85</td><td class='tnum'>122</td><td class='tnum'>92</td><td class='tnum'>116</td><td class='tnum'>95</td><td class='tnum'>92</td><td class='tnum'>95</td><td class='tnum'>54</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>+5%</td><td class='tnum'>-30%</td><td class='tnum'>+35%</td><td class='tnum'>-20%</td><td class='tnum'>+20%</td><td class='tnum'>+5%</td><td class='tnum'>-5%</td><td class='tnum'>+75%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$181</td><td class='tnum'>$195</td><td class='tnum'>$138</td><td class='tnum'>$131</td><td class='tnum'>$140</td><td class='tnum'>$152</td><td class='tnum'>$227</td><td class='tnum'>$181</td><td class='tnum'>$269</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-eta">
+  <div class="prod-h"><h3>Product Eta</h3><span class='pill positive'><span class='dot'></span>Growing</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on its own recent trend — not enough history yet for a fair year-on-year read.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">Volume — this year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:82%'></span><b class='tnum'>109</b></div><div class='bar'><span class='py' style='width:77%'></span><b class='tnum'>102</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:100%'></span><b class='tnum'>133</b></div><div class='bar'><span class='py' style='width:64%'></span><b class='tnum'>85</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:82%'></span><b class='tnum'>109</b></div><div class='bar'><span class='py' style='width:59%'></span><b class='tnum'>78</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>133</td><td class='tnum'>+20%</td><td class='tnum'>109</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$111</td><td class='tnum'>+10%</td><td class='tnum'>$103</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the order volume — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: +24 orders a cycle (+20%)</span><span class='pill tracking'><span class='dot'></span>OK</span></li><li><span>Not below its baseline</span><span class='pill tracking'><span class='dot'></span>OK</span></li></ul>
+  <div class="notes"><p><b>Early-downturn watch:</b> all clear — no early sign of a downturn.</p><p><b>Pattern:</b> Early stage — three-fortnight trend flat against avg.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>146</td><td class='tnum'>167</td><td class='tnum'>116</td><td class='tnum'>122</td><td class='tnum'>133</td><td class='tnum'>102</td><td class='tnum'>109</td><td class='tnum'>112</td><td class='tnum'>85</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>-10%</td><td class='tnum'>+45%</td><td class='tnum'>-5%</td><td class='tnum'>-10%</td><td class='tnum'>+30%</td><td class='tnum'>-5%</td><td class='tnum'>-5%</td><td class='tnum'>+30%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$123</td><td class='tnum'>$100</td><td class='tnum'>$117</td><td class='tnum'>$98</td><td class='tnum'>$85</td><td class='tnum'>$101</td><td class='tnum'>$115</td><td class='tnum'>$103</td><td class='tnum'>$130</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-theta">
+  <div class="prod-h"><h3>Product Theta</h3><span class='pill confirmed'><span class='dot'></span>Declining</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on its own recent trend — not enough history yet for a fair year-on-year read.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">Volume — this year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:100%'></span><b class='tnum'>71</b></div><div class='bar'><span class='py' style='width:57%'></span><b class='tnum'>41</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:76%'></span><b class='tnum'>54</b></div><div class='bar'><span class='py' style='width:57%'></span><b class='tnum'>41</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:81%'></span><b class='tnum'>58</b></div><div class='bar'><span class='py' style='width:57%'></span><b class='tnum'>41</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>54</td><td class='tnum'>-5%</td><td class='tnum'>58</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$93</td><td class='tnum'>-5%</td><td class='tnum'>$96</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the order volume — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↓</div><span class='pill emerging'><span class='dot'></span>Emerging</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↓</div><span class='pill confirmed'><span class='dot'></span>Confirmed</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↓</div><span class='pill emerging'><span class='dot'></span>Emerging</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: -1 orders a cycle (-5%)</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li><li><span>Below its own baseline 3 cycles running</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Short trend in the order volume</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li><li><span>Medium trend in the order volume</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Long trend in the order volume</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li></ul>
+  <div class="notes"><p><b>Early-downturn watch:</b> all clear — no early sign of a downturn.</p><p><b>Pattern:</b> Early growth — three-fortnight trend rising.</p><p><b>Ad-account changes:</b> none this cycle.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>54</td><td class='tnum'>61</td><td class='tnum'>51</td><td class='tnum'>61</td><td class='tnum'>51</td><td class='tnum'>48</td><td class='tnum'>44</td><td class='tnum'>51</td><td class='tnum'>82</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>-10%</td><td class='tnum'>+20%</td><td class='tnum'>-15%</td><td class='tnum'>+20%</td><td class='tnum'>+5%</td><td class='tnum'>+10%</td><td class='tnum'>-15%</td><td class='tnum'>-40%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$86</td><td class='tnum'>$86</td><td class='tnum'>$107</td><td class='tnum'>$96</td><td class='tnum'>$97</td><td class='tnum'>$107</td><td class='tnum'>$151</td><td class='tnum'>$97</td><td class='tnum'>$56</td></tr></table></div></details>
+</section>
+<section class="card prod" id="product-iota">
+  <div class="prod-h"><h3>Product Iota</h3><span class='pill tracking'><span class='dot'></span>Holding steady</span>
+    <a class="back" href="#overview">↑ Overview</a></div>
+  <p class="basis">Assessed on its own recent trend — not enough history yet for a fair year-on-year read.</p>
+  <div class="prod-grid">
+    <div><div class="sub-h">Volume — this year vs last year</div><div class='bp'><div class='bp-l'>This cycle (projected)</div><div class='bar'><span class='ty' style='width:95%'></span><b class='tnum'>61</b></div><div class='bar'><span class='py' style='width:100%'></span><b class='tnum'>65</b></div></div><div class='bp'><div class='bp-l'>Last 3 cycles, smoothed</div><div class='bar'><span class='ty' style='width:95%'></span><b class='tnum'>61</b></div><div class='bar'><span class='py' style='width:42%'></span><b class='tnum'>27</b></div></div><div class='bp'><div class='bp-l'>Prior 6 cycles, smoothed</div><div class='bar'><span class='ty' style='width:84%'></span><b class='tnum'>54</b></div><div class='bar'><span class='py' style='width:5%'></span><b class='tnum'>3</b></div></div>
+      <div class="key"><span class="ty"></span>This year <span class="py"></span>Last year</div></div>
+    <div><div class="sub-h">Last 3 cycles vs the 6 before</div>
+      <table class="cmp"><tr><th></th><th>Last 3</th><th>Change</th><th>Prior 6</th></tr><tr><td class='lbl'>Average orders per cycle</td><td class='tnum'>54</td><td class='tnum'>-5%</td><td class='tnum'>58</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$143</td><td class='tnum'>+60%</td><td class='tnum'>$89</td></tr></table></div>
+  </div>
+  <div class="sub-h">Trend in the order volume — five horizons</div>
+  <div class="chips"><div class='chip'><div class='chip-l'>Recent</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Short</div><div class='chip-a'>↓</div><span class='pill emerging'><span class='dot'></span>Emerging</span></div><div class='chip'><div class='chip-l'>Medium</div><div class='chip-a'>↓</div><span class='pill developing'><span class='dot'></span>Developing</span></div><div class='chip'><div class='chip-l'>Long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div><div class='chip'><div class='chip-l'>Very long</div><div class='chip-a'>↑</div><span class='pill tracking'><span class='dot'></span>inside noise</span></div></div>
+  <div class="sub-h">What the watchers say</div>
+  <ul class="watch"><li><span>Last 3 cycles against the 6 before: -2 orders a cycle (-5%)</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li><li><span>Below its own baseline 4 cycles running</span><span class='pill confirmed'><span class='dot'></span>Confirmed</span></li><li><span>Short trend in the order volume</span><span class='pill emerging'><span class='dot'></span>Emerging</span></li><li><span>Medium trend in the order volume</span><span class='pill developing'><span class='dot'></span>Developing</span></li></ul>
+  <div class="notes"><p><b>Early-downturn watch:</b> all clear — no early sign of a downturn.</p><p><b>Pattern:</b> Early growth — three-fortnight trend rising, last reading above 3-fortnight avg.</p></div>
+  <details><summary>Last 9 cycles</summary><div class="tbl"><table><tr><th></th><th>Cycle 19</th><th>Cycle 18</th><th>Cycle 17</th><th>Cycle 16</th><th>Cycle 15</th><th>Cycle 14</th><th>Cycle 13</th><th>Cycle 12</th><th>Cycle 11</th></tr><tr><td class='lbl'>Orders</td><td class='tnum'>71</td><td class='tnum'>58</td><td class='tnum'>54</td><td class='tnum'>34</td><td class='tnum'>75</td><td class='tnum'>44</td><td class='tnum'>41</td><td class='tnum'>71</td><td class='tnum'>51</td></tr><tr><td class='lbl'>Cycle on cycle</td><td class='tnum'>+25%</td><td class='tnum'>+5%</td><td class='tnum'>+60%</td><td class='tnum'>-55%</td><td class='tnum'>+70%</td><td class='tnum'>+10%</td><td class='tnum'>-45%</td><td class='tnum'>+40%</td><td class='tnum'>—</td></tr><tr><td class='lbl'>Cost per order</td><td class='tnum'>$135</td><td class='tnum'>$187</td><td class='tnum'>$105</td><td class='tnum'>$123</td><td class='tnum'>$60</td><td class='tnum'>$100</td><td class='tnum'>$113</td><td class='tnum'>$69</td><td class='tnum'>$109</td></tr></table></div></details>
+</section>
+
+<div class="card how"><h2>How it works</h2><ol>
+<li><b>Ground truth first.</b> Orders are reconciled to the accounting records and the attribution model before any number is shown.</li>
+<li><b>One set of watchers per product.</b> Each product is judged against its own normal swing, not a portfolio average — a small product's quiet fortnight is not an alarm.</li>
+<li><b>Signals escalate.</b> One watcher = Emerging, two = Developing, three = Confirmed. A single fortnight can never move the call on its own.</li>
+<li><b>Slowing is not declining.</b> A moderator separates growth that is easing from a real fall, so the team isn't chasing healthy products.</li>
+<li><b>The fortnight in progress is projected,</b> with a range, from the days so far — a direction, never a verdict.</li>
+</ol></div>
+
+<p class="foot">Demo report — all figures scaled and anonymised. Real client data not shown.</p>
+</div></body></html>

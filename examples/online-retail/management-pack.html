@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Management Pack Example · DC3-AI</title>
+<meta name="description" content="An example periodic management pack for an online business: volume, cost per sale by source, profit by product, campaign groups against break-even, and every product's deviations, with drop-downs for the detail.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css?v=eadfd283">
+</head>
+<body>
+<header class="site-head">
+  <a class="lockup" href="../../index.html" aria-label="DC3-AI home">
+    <img src="../../assets/logo.svg" alt="DC3-AI" width="150" height="26">
+    <span class="descriptor">Performance Optimisation</span>
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="../../index.html">What we do</a>
+    <a href="../../examples/online-retail/fortnightly-tracker.html">Fortnightly tracker</a>
+    <a href="../../examples/online-retail/management-pack.html" aria-current="page">Management pack</a>
+    <a href="../../index.html#about">About</a>
+    <a class="cta" href="../../solve.html">Bring us one problem to solve</a>
+  </nav>
+</header>
+<main class="wrap">
+  <p class="crumbs"><a href="../../index.html">Home</a> / <a href="../../examples/index.html">Examples</a> / Online retail</p>
+  <div class="doc-intro">
+    <div>
+      <p class="eyebrow">Example · periodic management pack</p>
+      <h1>The management pack, <em>on your rhythm</em></h1>
+      <p class="lede">Weekly, fortnightly or monthly: the pack follows your business’s own cycle, not the calendar. Read the first page in five minutes, or open any section and follow the trend down to each product, each campaign group and each deviation.</p>
+    </div>
+    <ul>
+      <li>As brief or as detailed as you want: every section opens for its detail</li>
+      <li>Down to profit, by product and by campaign group</li>
+      <li>Colour only where a change is real, never for noise</li>
+      <li>Every order counted once, against the books</li>
+    </ul>
+  </div>
+
+  <article class="doc pack" aria-label="Example management pack">
+    <div class="doc-head">
+      <div class="t"><span>Management pack · sales, marketing and profit</span>Volume still growing; cost per order still 41% above last year; the repricing moved the money</div>
+      <div class="meta">Cycle 20, day 7 of 14 · projected ±15%<br>All ad accounts · every order counted once</div>
+    </div>
+    <div class="pack-tools"><button type="button" class="btn" id="open-all">Open every section</button></div>
+
+    <h4>The message</h4>
+    <ol class="decisions">
+      <li><div><b>Volume keeps growing.</b><span>Cycle 20 is on pace for 1,503 orders, in line with the tracker’s smoothed average of 1,465; its first week (751) is 21% ahead of the same days last year. The last three cycles run 15% ahead of last year and the year to date 19%. Cycle 19 closed at 1,469, 5% ahead.</span></div></li>
+      <li><div><b>The cost has not come down, and the rebuilt search campaigns are still the dearest source.</b><span>Cost per order is $123 over the last three cycles against $88 a year ago (+41%, far past its usual swing); against the six cycles before it is 7% higher, inside its swing. Rebuilt search costs $248 per credited sale, 56% more than last year’s $159. Profit after own ad spend on the nine products is $257K a cycle against $281K last year (−9%), Product Delta the largest part. Brand search is not part of the problem.</span></div></li>
+      <li><div><b>The repricing moved the money as intended.</b><span>In cycle 20’s first week group A spent $30K (all of cycle 19: $33K) and group B $16K (all of cycle 19: $53K). Whether A’s extra spend buys sales at or under break-even is first read mid-cycle 21 and decided on cycles 20 and 21 together. Until B is at or under break-even, the next two restructures stay parked.</span></div></li>
+    </ol>
+
+    <h4>Headline numbers</h4>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Orders, cycle 20 pacing</div><b>1,503</b><div class="c">range 1,278–1,727 · cycle 19 1,469</div></div>
+      <div class="kpi"><div class="l">Orders vs last year</div><b class="up">+15%</b><div class="c">last 3 cycles · 1,465 a cycle vs 1,275</div></div>
+      <div class="kpi"><div class="l">Cost per order</div><b>$122</b><div class="c">last 3 $123 · +7% vs prior 6 · <span class="dn">+41% vs last year</span></div></div>
+      <div class="kpi"><div class="l">Ad spend, projected</div><b>$184K</b><div class="c">cycle 19 $180K · +2% · +30% on last year</div></div>
+      <div class="kpi"><div class="l">Gross contribution, projected</div><b>$268K</b><div class="c">cycle 19 $251K · same cycle last year $213K</div></div>
+    </div>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Volume and cost per order</b> <span class="sum-h">on pace for 1,503: the business is still growing</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <p>Cycle 20 took 751 orders in its first seven days, 21% ahead of the same days last year (622). The tracker projects 1,503 (range 1,278–1,727), in line with its smoothed average of 1,465. The year to date is 25,932, +19%. Cycle 19 closed at 1,469 after six orders were cancelled with nothing bought, 5% ahead of last year’s 1,404. No decline at the level of the whole business: the tracker reads Growing.</p>
+      </div>
+    </details>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Cost, by source</b> <span class="sum-h">every source at its usual cost against the prior six, but rebuilt search is 56% dearer than last year</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Campaign type</th><th>Sales<small>cycle 20, proj.</small></th><th>Cost per sale<small>cycle 20, proj.</small></th><th>Cost per sale<small>last 3 cycles</small></th><th>vs prior 6</th><th>vs last year</th><th>Share of spend</th></tr></thead>
+            <tbody>
+              <tr><td><b>Brand search</b></td><td>139</td><td>$29</td><td>$26</td><td>−20%</td><td>−2%</td><td>2%</td></tr>
+              <tr><td><b>Search, rebuilt (groups A and B)</b></td><td>275</td><td>$333</td><td>$248</td><td>+10%</td><td class="dn">+56%</td><td>43%</td></tr>
+              <tr><td><b>Search, not yet rebuilt</b></td><td>309</td><td>$202</td><td>$244</td><td>+14%</td><td class="dn">+26%</td><td>38%</td></tr>
+              <tr><td><b>Product shopping</b></td><td>95</td><td>$187</td><td>$132</td><td>+0%</td><td>+21%</td><td>11%</td></tr>
+              <tr><td><b>General shopping</b></td><td>27</td><td>$148</td><td>$151</td><td>−15%</td><td>+29%</td><td>3%</td></tr>
+              <tr><td><b>Other paid</b></td><td>48</td><td>$93</td><td>$122</td><td>+26%</td><td>−20%</td><td>3%</td></tr>
+              <tr class="total"><td>All paid sources</td><td>887</td><td>$207</td><td>$187</td><td>+8%</td><td class="dn">+42%</td><td>100%</td></tr>
+              <tr class="sub-row"><td>Cost per order (all spend ÷ all orders)</td><td>1,503</td><td>$122</td><td>$123</td><td>+7%</td><td class="dn">+41%</td><td>–</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Against the prior six cycles no campaign type moved beyond its usual swing. Against the same three cycles last year, rebuilt search (+56%), the search not yet rebuilt (+26%), all paid (+42%) and cost per order (+41%) are dearer beyond it. So far in cycle 20, rebuilt search is heading dearer ($333 a credited sale against $248) as group A’s spend rose after the repricing, and product shopping too ($187 against $132). Rebuilt search is the line to fix; the repricing is the fix under test.</p>
+        <p class="fine">Red is beyond that line’s usual swing: 1.5 times the median swing in its own history, or 25% either way, whichever is smaller. Everything else is inside its swing: treat it as noise. Cycle 20 is projected from seven days; tested over 35 closed cycles, the first-week cost per sale landed on average within 1% of the close, with no lean either way.</p>
+      </div>
+    </details>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Gross contribution</b> <span class="sum-h">cycle 19 gave back 10% on last year; cycle 20 is projecting ahead</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <p>Cycle 19: $251K, 10% below last year’s $277K (last year’s strongest cycle), on 5% more orders. Ad spend of $180K against $116K absorbed the growth. Cycle 20 projects $268K against $213K last year, from seven days, against a dear cycle last year.</p>
+        <p class="nuance"><b>A caveat we state rather than hide:</b> labour is charged as a fixed share of every order, as if it were fully variable. Much of it is fixed in the short run, so this line penalises a strong cycle and flatters a weak one. Read the trend, not the single cycle.</p>
+      </div>
+    </details>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Profit, by product</b> <span class="sum-h">level with the prior six, 9% below last year; Products Delta, Gamma and Epsilon give profit back</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <div class="tbl">
+          <table class="wide">
+            <thead>
+              <tr><th></th><th></th><th colspan="4" class="grp">Cash contribution before labour</th><th colspan="4" class="grp">Profit after labour</th></tr>
+              <tr><th>Product</th><th>Orders<small>cycle 20, proj.</small></th><th>Cycle 20<small>proj.</small></th><th>Last 3<small>per cycle</small></th><th>vs prior 6</th><th>vs last year</th><th>Cycle 20<small>proj.</small></th><th>Last 3<small>per cycle</small></th><th>vs prior 6</th><th>vs last year</th></tr>
+            </thead>
+            <tbody>
+            <tr><td><b>Product Delta</b></td><td>286</td><td>$104K</td><td>$129K</td><td>−4%</td><td class="dn">−19%</td><td>$62K</td><td>$81K</td><td>−7%</td><td class="dn">−24%</td></tr>
+            <tr><td><b>Product Alpha</b></td><td>286</td><td>$127K</td><td>$98K</td><td>+11%</td><td>+5%</td><td>$74K</td><td>$56K</td><td>+7%</td><td>−2%</td></tr>
+            <tr><td><b>Product Zeta</b></td><td>102</td><td>$49K</td><td>$46K</td><td>+13%</td><td class="up">+69%</td><td>$29K</td><td>$26K</td><td>+15%</td><td>+72%</td></tr>
+            <tr><td><b>Product Epsilon</b></td><td>190</td><td>$44K</td><td>$44K</td><td>+21%</td><td>−5%</td><td>$28K</td><td>$27K</td><td>+20%</td><td class="dn">−15%</td></tr>
+            <tr><td><b>Product Eta</b></td><td>122</td><td>$29K</td><td>$38K</td><td>+27%</td><td>+51%</td><td>$14K</td><td>$20K</td><td>+24%</td><td>+38%</td></tr>
+            <tr><td><b>Product Gamma</b></td><td>197</td><td>$31K</td><td>$33K</td><td>−26%</td><td>−21%</td><td>$16K</td><td>$17K</td><td>−35%</td><td class="dn">−30%</td></tr>
+            <tr><td><b>Product Beta</b></td><td>82</td><td>$31K</td><td>$31K</td><td>+15%</td><td>−6%</td><td>$20K</td><td>$20K</td><td>+16%</td><td>−10%</td></tr>
+            <tr><td><b>Product Theta</b></td><td>82</td><td>$22K</td><td>$14K</td><td>+6%</td><td>−4%</td><td>$14K</td><td>$8.5K</td><td>+8%</td><td>−19%</td></tr>
+            <tr><td><b>Product Iota</b></td><td>41</td><td>$1.8K</td><td>$8.9K</td><td>−19%</td><td class="up">+171%</td><td>−$3.1K</td><td>$1.8K</td><td class="dn">−60%</td><td>—</td></tr>
+            <tr class="total"><td>Nine products together</td><td>1,387</td><td>$441K</td><td>$442K</td><td>+4%</td><td>+0%</td><td>$253K</td><td>$257K</td><td>+0%</td><td>−9%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Over the last three cycles, profit after each product’s own ad spend is level with the prior six and 9% below last year. Products Delta, Gamma and Epsilon give profit back against last year. Cycle 20 is heading level ($253K projected against $257K a cycle): Product Alpha carries it ($74K against $56K), Product Delta runs below its average ($62K against $81K), and Product Iota projects a loss after its own spend.</p>
+        <p class="fine">Cash contribution = orders × each product’s contribution per order before labour (net income after credit notes, less parts, stock, indirect costs, payment fees and shipping), minus the product’s own search and shopping spend. Profit = the same after labour. Spend no product owns (brand search, general shopping, other paid) sits in gross contribution above. Coloured only beyond each product’s usual swing; the total row has no band.</p>
+      </div>
+    </details>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Campaign groups against break-even</b> <span class="sum-h">three cycles after the rebuild: 22% more sales at 22% more per sale; group B is the only one losing money</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Since the rebuild (3.0 cycles)</th><th>Credited sales</th><th>Cost per sale</th><th>vs break-even</th><th>Profit vs break-even</th></tr></thead>
+            <tbody>
+            <tr><td>Old campaigns: what they would have given</td><td>~772</td><td>$224</td><td>68%</td><td>+$80K</td></tr>
+            <tr><td>Group A: the profit group</td><td>337</td><td>$303</td><td>91%</td><td>+$9.8K</td></tr>
+            <tr><td>Group B: the reprice pool</td><td>354</td><td>$435</td><td class="dn">137%</td><td class="dn">−$41K</td></tr>
+            <tr class="sub-row"><td>Live groups alone (A + B)</td><td>690</td><td>$371</td><td class="dn">114%</td><td class="dn">−$32K</td></tr>
+            <tr><td>Old campaigns’ trailing credit: no spend, valued at break-even</td><td>245</td><td>–</td><td>–</td><td>+$82K</td></tr>
+            <tr class="total"><td>All own search, actual: live groups + trailing credit</td><td>935</td><td>$274</td><td>84%</td><td>+$51K</td></tr>
+            <tr class="sub-row"><td>Product shopping, same five products (for comparison)</td><td>269</td><td>$134</td><td>41%</td><td>+$51K</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Rows add up: A + B = the live groups; live groups + trailing credit = all own search. The trailing credit is sales credited since the switch to clicks the old campaigns bought before it, valued at each product’s break-even, so the whole search book is read before the A / B split.</p>
+        <p>Since the rebuild, the whole search book has 935 credited sales against the 772 the old campaigns would have given (+22%), at $274 a sale against $224: $51K of profit against break-even, where the old campaigns would have made $80K. Group B is the only group losing money ($435 a sale, −$41K against break-even); group A makes money ($303 a sale), but less than before.</p>
+        <p class="nuance"><b>The driver:</b> the money moved, but the sales cannot be read yet. Group A’s higher target and bid cap, and group B’s lower target, moved the spend as intended. Cycle 20’s cost per sale is not a verdict; the first read is mid-cycle 21. Product Iota’s slower week is not the repricing; on Product Eta’s group B it is not ruled out.</p>
+      </div>
+    </details>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Brand search</b> <span class="sum-h">97% impression share, none lost to budget; credited sales up at the same cost</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Measure</th><th>Cycle 19</th><th>Last 3</th><th>Prior 6</th><th>Last 3, last year</th><th>vs prior 6</th><th>vs last year</th></tr></thead>
+            <tbody>
+            <tr><td>Spend per cycle</td><td>$4.0K</td><td>$4.0K</td><td>$3.9K</td><td>$3.1K</td><td>+3%</td><td>+28%</td></tr>
+            <tr><td>Credited sales (after the brand discount)</td><td>143</td><td>153</td><td>119</td><td>116</td><td>+28%</td><td>+30%</td></tr>
+            <tr><td>Cost per credited sale</td><td>$28</td><td>$26</td><td>$33</td><td>$26</td><td>−20%</td><td>−2%</td></tr>
+            <tr><td>Closing clicks (sales it closed, before the discount)</td><td>435</td><td>445</td><td>343</td><td>330</td><td>+31%</td><td>+35%</td></tr>
+            <tr><td>Search impression share</td><td>96%</td><td>97%</td><td>97%</td><td>95%</td><td>+0.2 pt</td><td>+2.3 pt</td></tr>
+            <tr><td>Lost to rank</td><td>4%</td><td>3%</td><td>3%</td><td>6%</td><td>−0.2 pt</td><td>−2.3 pt</td></tr>
+            <tr><td>Lost to budget</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0.0 pt</td><td>0.0 pt</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">Brand search is read on impression share, closing clicks and its cost trend, not against a break-even. Credited sales are after the brand discount: the first brand click in a sale’s journey earns 30% of the credit a product-search click would, so the credited figure is deliberately low.</p>
+      </div>
+    </details>
+
+    <h4>Products: the deviations behind the numbers</h4>
+    <p class="summary">No product changed its signal this week. Product Delta is still declining and Product Gamma still easing; Product Alpha is fast in cycle 20; Products Iota and Eta are slower. Open a product for where it moved, where its sales came from, what changed, and the read.</p>
+    <div class="prods">
+      <details class="sec prod">
+        <summary><span class="sum-t"><b>Product Delta</b> <span class="pill bad">Declining · held at Developing</span> <span class="sum-h">the biggest product, a slow leak: 6% below last year and search sales at twice last year’s cost</span></span><span class="chev" aria-hidden="true"></span></summary>
+        <div class="sec-body">
+          <div class="facts"><div><span>Cycle 20 pacing</span><b>286 (143 so far)</b></div><div><span>3-cycle average</span><b>330 · smoothed 326</b></div><div><span>Trend</span><b>−6% on last year · prior six −2%</b></div><div><span>Cost per order, last 3</span><b>$106 · +19% vs prior 6 · +32% vs last year</b></div></div>
+          <p><b>Where:</b> the last three cycles run 6% below last year (smoothed) and every trend window points down; cycle 20 is paced at 286 against its smoothed 326. Declining on every watcher since cycle 18; the moderator holds the call at Developing because volume is still healthy.</p>
+          <p><b>Sources of its sales</b> (cycle 19 against the same cycle last year):</p>
+          <ul class="src"><li>Organic 119 against 143</li><li>Own search 95 against 119, at $318 a sale against $162</li><li>General-catalogue shopping 7 against 34: last year’s catalogue campaign is paused</li><li>Other campaigns 48 against 17, the other way</li></ul>
+          <p><b>Changes:</b> both search groups’ daily budgets were raised in cycle 19, then the cycle-19 repricing.</p>
+          
+          <p class="read"><b>Read:</b> fewer organic and search sales, and search at twice last year’s cost per sale. Mid-cycle 21 is the first read of the repricing on the biggest product.</p>
+        </div>
+      </details>
+      <details class="sec prod">
+        <summary><span class="sum-t"><b>Product Gamma</b> <span class="pill warn">Easing · Confirmed</span> <span class="sum-h">still ahead of last year, but growing 9.6 points slower; a shopping gap and dearer search</span></span><span class="chev" aria-hidden="true"></span></summary>
+        <div class="sec-body">
+          <div class="facts"><div><span>Cycle 20 pacing</span><b>197 (99 so far)</b></div><div><span>3-cycle average</span><b>207 · smoothed 224</b></div><div><span>Trend</span><b>+4% on last year · prior six +14%</b></div><div><span>Cost per order, last 3</span><b>$122 · +28% vs prior 6 · +26% vs last year</b></div></div>
+          <p><b>Where:</b> +4% on last year over the last three cycles, 9.6 points slower than the six before; cycle 20 is paced at 197 against its smoothed 224. Growing in cycles 18 and 19, Easing since cycle 20.</p>
+          <p><b>Sources of its sales</b> (cycle 19 against the same cycle last year):</p>
+          <ul class="src"><li>Own shopping 20 against 58: last year’s shopping campaign is paused</li><li>Own search 65 against 68, at $342 a sale against $147</li><li>Organic 75 against 68</li></ul>
+          <p><b>Changes:</b> none on its own campaigns for five weeks.</p>
+          
+          <p class="read"><b>Read:</b> a shopping gap and dearer search. The cycle-20 close decides whether Easing becomes Declining.</p>
+        </div>
+      </details>
+      <details class="sec prod">
+        <summary><span class="sum-t"><b>Product Alpha</b> <span class="pill up">Growing</span> <span class="sum-h">16% ahead of last year and a very strong week; cost per order is the watch</span></span><span class="chev" aria-hidden="true"></span></summary>
+        <div class="sec-body">
+          <div class="facts"><div><span>Cycle 20 pacing</span><b>286 (143 so far)</b></div><div><span>3-cycle average</span><b>224 · smoothed 214</b></div><div><span>Trend</span><b>+16% on last year · prior six +7%</b></div><div><span>Cost per order, last 3</span><b>$109 · +24% vs prior 6 · +76% vs last year</b></div></div>
+          <p><b>Where:</b> +16% on last year over the last three cycles; cycle 20 is paced at 286, well above its smoothed 214. Growing on every watcher since cycle 18.</p>
+          <p><b>Sources of its sales</b> (cycle 19 against the same cycle last year):</p>
+          <ul class="src"><li>Organic 78 against 88</li><li>Own search 71 against 68, at $312 a sale against $138</li></ul>
+          <p><b>Changes:</b> the agency raised group A’s daily budget by about 70% at the end of cycle 20’s first week.</p>
+          
+          <p class="read"><b>Read:</b> one strong week. Where it came from, and what group A now costs, are read at the cycle-20 close.</p>
+        </div>
+      </details>
+      <details class="sec prod">
+        <summary><span class="sum-t"><b>Product Eta</b> <span class="pill up">Growing · Confirmed rise</span> <span class="sum-h">22% above the six cycles before, but group B was credited with almost no sales this week</span></span><span class="chev" aria-hidden="true"></span></summary>
+        <div class="sec-body">
+          <div class="facts"><div><span>Cycle 20 pacing</span><b>122 (61 so far)</b></div><div><span>3-cycle average</span><b>143 · smoothed 133</b></div><div><span>Trend</span><b>+22% vs prior six · a 3.0-standard-deviation rise</b></div><div><span>Cost per order, last 3</span><b>$111 · +7% vs prior 6 · +40% vs last year</b></div></div>
+          <p><b>Where:</b> the last three cycles 133 against 109 over the prior six (smoothed, a confirmed rise); cycle 20 is paced at 122, though its first week (61) is level with cycle 19’s.</p>
+          <p><b>Sources of its sales</b> (cycle 19 against the same cycle last year):</p>
+          <ul class="src"><li>Organic 51 against 27</li><li>Own search 41 against 37, at $355 a sale against $92</li></ul>
+          <p><b>Changes:</b> the cycle-19 repricing; group B’s ads were rewritten this week.</p>
+          <p class="nuance"><b>Underneath the level week:</b> group B’s clicks held (129 to 124 a day, before against after) with nothing lost to budget, yet B was credited with only 3 sales in seven days. Shopping gave some back; organic and other campaigns made up the difference.</p>
+          <p class="read"><b>Read:</b> not a traffic cut, and the repricing is not ruled out on group B. Re-read at the cycle-20 close and mid-cycle 21.</p>
+        </div>
+      </details>
+      <details class="sec prod">
+        <summary><span class="sum-t"><b>Product Iota</b> <span class="pill ok">Steady · cost is the issue</span> <span class="sum-h">volume steady, but its own search spend has doubled without more orders</span></span><span class="chev" aria-hidden="true"></span></summary>
+        <div class="sec-body">
+          <div class="facts"><div><span>Cycle 20 pacing</span><b>41 (20 so far)</b></div><div><span>3-cycle average</span><b>58 · smoothed 54</b></div><div><span>Trend</span><b>−6% vs prior six · 0.4 standard deviations: noise</b></div><div><span>Cost per order, last 3</span><b>$148 · +66% vs prior 6 · −17% vs last year</b></div></div>
+          <p><b>Where:</b> steady on the six before; cycle 20 is paced at 41 against its three-cycle average of 58. Declining in cycles 18 and 19, Steady since cycle 20.</p>
+          <p><b>Sources of its sales</b> (cycle 19 against the same cycle last year):</p>
+          <ul class="src"><li>Organic 34 against 17</li><li>Own search 17 against 7, at $561 a sale against a $181 break-even</li></ul>
+          <p><b>Changes:</b> the cycle-19 repricing; group B’s ads were rewritten this week.</p>
+          <p class="nuance"><b>Not the repricing:</b> the week’s shortfall is organic and brand search, and own search rose. Group B’s clicks held (71 to 70 a day) and group A’s rose (16 to 19), with no budget limit. Profit after its own spend is $1.8K a cycle against $4.9K before.</p>
+          <p class="read"><b>Read:</b> the week is noise on a handful of orders. The cost of its search campaigns is the question for the agency.</p>
+        </div>
+      </details>
+      <div class="rest"><b>The rest, healthy:</b> Product Epsilon Growing (+20% on last year) · Product Zeta Growing (102 against 88 over the prior six, low confidence) · Product Beta Growing (an emerging rise) · Product Theta Steady. Each has cycle 20 in line with or above its average.</div>
+    </div>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Next</b> <span class="sum-h">what gets read, and when</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <table class="next-t">
+          <tbody>
+            <tr><td>Cycle 20 close</td><td>Products Iota and Eta re-read (Eta’s group B); whether Product Gamma moves from Easing to Declining; where Product Alpha’s jump came from</td></tr>
+            <tr><td>Early cycle 21</td><td>The agency’s verdict on the rebuild as a whole; the next two restructures follow only once group B is at or under break-even</td></tr>
+            <tr><td>Mid-cycle 21</td><td>First read of the repricing, once cycle 20’s sales have matured; the tracker gains a cost read per product</td></tr>
+            <tr><td>End of cycle 21</td><td>Verdict on the repricing, cycles 20 and 21 together</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="sec">
+      <summary><span class="sum-t"><b>Basis</b> <span class="sum-h">how every number is counted</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="sec-body">
+        <p class="fine">Orders are counted once per customer checkout, from the order system, and reconciled to the accounts. Credited sales use our own attribution rule on raw click journeys (first and last click weighted, brand clicks discounted, a 90-day click window); the ad platforms’ own conversion counts are not used. Cost per sale = spend ÷ credited sales over the window, read on the tracker’s shape: the last three cycles against the six before and against last year, coloured only beyond the measure’s own usual swing. Break-even = full cost per order including labour and shipping. Gross contribution = orders × each product’s contribution per order before advertising, minus all ad spend, two-product orders counted once.</p>
+      </div>
+    </details>
+    <p class="fine">Example from client work. Products renamed Alpha to Iota and every figure scaled, so the business cannot be identified.</p>
+  </article>
+
+  <div class="next">
+    <p>Built around one business at a time: your product lines, your cycle, your yardsticks, and as much detail as you want to see. Bring us one problem to solve and we will show you what your numbers really say.</p>
+    <div class="button-row" style="margin-top:0"><a class="btn" href="../../examples/online-retail/fortnightly-tracker.html">See the fortnightly tracker</a><a class="btn key" href="../../solve.html">Bring us one problem to solve</a></div>
+  </div>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('open-all');
+      var all = function () { return Array.prototype.slice.call(document.querySelectorAll('.pack details')); };
+      btn.addEventListener('click', function () {
+        var open = all().some(function (d) { return !d.open; });
+        all().forEach(function (d) { d.open = open; });
+        btn.textContent = open ? 'Close every section' : 'Open every section';
+      });
+    })();
+  </script>
+</main>
+<footer class="site-foot">
+  <span>© 2026 DC3-AI · Performance Optimisation</span>
+  <span>Client examples are anonymised. Figures are rounded or illustrative.</span>
+</footer>
+<script>
+  // Copy buttons: any button with data-copy="<element id>" copies that element's text.
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected: press Ctrl+C';
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = label; }, 1800);
+        }, fallback);
+      } else { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Example Reports · DC3-AI</title>
+<meta name="description" content="Example reports built the way DC3-AI builds them for clients: the fortnightly tracker and the periodic management pack for a US online business.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=eadfd283">
+</head>
+<body>
+<header class="site-head">
+  <a class="lockup" href="../index.html" aria-label="DC3-AI home">
+    <img src="../assets/logo.svg" alt="DC3-AI" width="150" height="26">
+    <span class="descriptor">Performance Optimisation</span>
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="../index.html">What we do</a>
+    <a href="../examples/online-retail/fortnightly-tracker.html">Fortnightly tracker</a>
+    <a href="../examples/online-retail/management-pack.html">Management pack</a>
+    <a href="../index.html#about">About</a>
+    <a class="cta" href="../solve.html">Bring us one problem to solve</a>
+  </nav>
+</header>
+<main class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Examples</p>
+    <h1>What lands on your desk</h1>
+    <p class="lede">Every business gets its own reports, built around how it makes money. These come from our own client work, with the products renamed and every figure scaled so the business cannot be identified.</p>
+  </div>
+
+  <section aria-labelledby="retail" style="margin-top:56px">
+    <div class="sector">
+      <div>
+        <p class="eyebrow">Sector · online retail</p>
+        <h2 id="retail">A US online business with nine product lines</h2>
+        <p>Products Alpha to Iota sell through search, shopping and brand ads, across more than one ad account. The tracker watches each product against its own normal range. The management pack turns it into one page you can read in five minutes, with every section opening down to profit by product and campaign group.</p>
+      </div>
+      <div class="ex-grid">
+        <a class="ex" href="../examples/online-retail/fortnightly-tracker.html">
+          <div class="peek" aria-hidden="true">
+            <div class="peek-rows">
+              <div class="peek-row"><span>Product Alpha</span><i style="width:80%"></i><span>Growing</span></div>
+              <div class="peek-row"><span>Product Gamma</span><i class="warn" style="width:64%"></i><span>Easing</span></div>
+              <div class="peek-row"><span>Product Delta</span><i class="bad" style="width:46%"></i><span>Declining</span></div>
+              <div class="peek-row"><span>Product Iota</span><i class="neutral" style="width:58%"></i><span>Steady</span></div>
+            </div>
+          </div>
+          <div class="body">
+            <span class="k">Every fortnight</span>
+            <h3>Fortnightly tracker</h3>
+            <p>Nine products, each with its own detail page. Product Delta’s slow leak is held at “developing” because volume is still healthy.</p>
+            <span class="go">Open →</span>
+          </div>
+        </a>
+        <a class="ex" href="../examples/online-retail/management-pack.html">
+          <div class="peek" aria-hidden="true">
+            <div class="peek-kpis">
+              <div>Orders vs last year<b>+15%</b></div>
+              <div>Cost per order<b>$123</b></div>
+              <div>Contribution<b>$268K</b></div>
+            </div>
+          </div>
+          <div class="body">
+            <span class="k">On your rhythm</span>
+            <h3>Management pack</h3>
+            <p>Three messages and the headline numbers first; then drop-downs for cost by source, profit by product, campaign groups against break-even and each product’s deviations.</p>
+            <span class="go">Open →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="sector">
+      <div>
+        <p class="eyebrow">More sectors</p>
+        <h2>Yours could be next</h2>
+      </div>
+      <p class="soon">We add an example each time we build one for a new kind of business. Want to see how it would look for yours? <a href="../solve.html">Bring us one problem to solve.</a></p>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">
+  <span>© 2026 DC3-AI · Performance Optimisation</span>
+  <span>Client examples are anonymised. Figures are rounded or illustrative.</span>
+</footer>
+<script>
+  // Copy buttons: any button with data-copy="<element id>" copies that element's text.
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected: press Ctrl+C';
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = label; }, 1800);
+        }, fallback);
+      } else { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>
