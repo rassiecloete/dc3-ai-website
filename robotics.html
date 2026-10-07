@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Robotics · DC3-AI</title>
+<meta name="description" content="DC3-AI robotics: major projects under way. Contact us to hear more.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=7ef8f70d">
+</head>
+<body>
+<header class="site-head">
+  <a class="lockup" href="index.html" aria-label="DC3-AI home">
+    <img src="assets/logo.svg" alt="DC3-AI" width="150" height="26">
+    <span class="descriptor">Performance Optimisation</span>
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <div class="nav-item"><a href="marketing.html">Marketing</a><div class="nav-menu"><a href="examples/online-retail/fortnightly-tracker.html">Fortnightly tracker</a><a href="examples/online-retail/management-pack.html">Management pack</a><a href="marketing.html#changes">Change monitoring</a></div></div>
+    <div class="nav-item"><a href="operations.html">Operations</a><div class="nav-menu"><a href="examples/workshop/production-report.html">Production report</a><a href="examples/workshop/production-dashboard.html">Production dashboard</a><a href="operations.html#service">Customer service</a></div></div>
+    <a href="finance.html">Finance</a>
+    <a href="robotics.html" aria-current="page">Robotics</a>
+    <a href="index.html#about">About</a>
+    <a class="cta" href="solve.html">Bring us one problem to solve</a>
+  </nav>
+</header>
+<main class="wrap">
+  <p class="crumbs"><a href="index.html">Home</a> / Robotics</p>
+  <div class="coming" role="region" aria-labelledby="robotics-h">
+    <div>
+      <p class="eyebrow">Pillar 4 · Robotics</p>
+      <h1 id="robotics-h">Robotics: <em>more to show soon.</em></h1>
+      <p>Major robotics projects are under way behind the scenes, and not all of that work is on show yet. If you would like to hear more, or have a robotics problem you would like solved, get in touch.</p>
+    </div>
+    <div class="box">
+      <b>Talk to us about robotics</b>
+      <p>Book a free 45-minute call, or write to us directly.</p>
+      <p class="addr" id="robotics-addr">rassie@dc3-ai.com</p>
+      <div class="button-row" style="margin-top:0"><a class="btn key" href="solve.html">Book a free call</a><button type="button" class="btn" data-copy="robotics-addr">Copy email address</button></div>
+    </div>
+  </div>
+
+  <section aria-labelledby="robotics-more">
+    <p class="eyebrow">More of our work</p>
+    <h2 id="robotics-more">Other examples of our work</h2>
+    <div class="offers">
+      <a class="offer-card" href="marketing.html" style="text-decoration:none;color:inherit"><span class="k">Pillar 1</span><h3>Marketing</h3><p>The fortnightly tracker, the management pack and change monitoring, all reconciled to your books.</p><span class="go">Open →</span></a>
+      <a class="offer-card" href="operations.html" style="text-decoration:none;color:inherit"><span class="k">Pillar 2</span><h3>Operations</h3><p>The production report, the live production dashboard and customer service intelligence.</p><span class="go">Open →</span></a>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">
+  <span>© 2026 DC3-AI · Performance Optimisation</span>
+  <span>Client examples are anonymised. Figures are rounded or illustrative.</span>
+</footer>
+<script>
+  // Copy buttons: any button with data-copy="<element id>" copies that element's text.
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected: press Ctrl+C';
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = label; }, 1800);
+        }, fallback);
+      } else { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>
