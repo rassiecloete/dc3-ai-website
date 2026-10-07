@@ -324,6 +324,8 @@ td small { display: block; font-size: 12px; color: var(--muted); font-weight: 50
   .kpi { border-left: 0; border-top: 1px solid var(--line-faint); }
   .kpi:nth-child(-n+2) { border-top: 0; }
   .kpi:nth-child(even) { border-left: 1px solid var(--line-faint); }
+  /* an odd tile left over on the last row spans the full width, so the lines run all the way across */
+  .kpi:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .twin { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
