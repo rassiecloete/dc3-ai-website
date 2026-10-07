@@ -86,7 +86,7 @@ section { margin-top: 96px; scroll-margin-top: 16px; }
 .col.in .node::after { left: 100%; }
 .col.out .node::before { right: 100%; }
 @keyframes flow { to { background-position: 10px 0; } }
-.core { background: var(--ink); color: var(--cream); border-radius: 22px; padding: 28px 22px; text-align: center; box-shadow: 0 0 0 8px rgba(156,122,62,.18), 0 0 0 16px rgba(156,122,62,.08); }
+.core { background: var(--ink); color: var(--cream); border-radius: 22px; padding: 28px 22px; text-align: center; }
 .core .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--brass-soft); }
 .core .t { font-size: 26px; font-weight: 800; line-height: 1.1; margin: 8px 0 14px; }
 .core ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13.5px; }
@@ -339,7 +339,7 @@ td small { display: block; font-size: 12px; color: var(--muted); font-weight: 50
 }
 
 /* ---------- "Bring us one problem to solve" ---------- */
-.slogan { margin-top: 96px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: center; background: var(--ink); color: var(--cream); border-radius: 22px; padding: 44px 40px; box-shadow: 0 0 0 8px rgba(156,122,62,.18); }
+.slogan { margin-top: 96px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: center; background: var(--ink); color: var(--cream); border-radius: 22px; padding: 44px 40px; }
 .slogan .eyebrow { color: var(--brass-soft); }
 .slogan h2 { font-size: clamp(32px, 5vw, 52px); line-height: 1.04; margin: 0 0 14px; }
 .slogan h2 em { color: var(--brass-soft); }
